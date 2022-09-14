@@ -12,7 +12,7 @@ export default function Layout({ children }) {
   return (
     <div>
       {/* Header */}
-      <div className="px-8 py-4 flex justify-between items-center">
+      <div className="sticky top-0 px-8 py-3 -mt-16 flex justify-between items-center z-10">
         <span className="w-24 logo gold-gradient text-4xl">Ineffable</span>
         <div className="space-x-8">
           <NavLink to="">Cocktails</NavLink>

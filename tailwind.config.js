@@ -7,6 +7,9 @@ module.exports = {
         "shiny-gold": "#D4AF37",
         "rich-black": "#010203",
       },
+      backgroundImage: {
+        "hero-image": "url('/src/assets/images/rum-smoke.jpg')",
+      },
     },
   },
   plugins: [],
