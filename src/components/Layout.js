@@ -7,12 +7,30 @@ import {
   FaInstagram,
   FaPinterestP,
 } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 export default function Layout({ children }) {
+  const [isScroll, setIsScroll] = useState(false);
+  useEffect(() => {
+    function handleScroll() {
+      setIsScroll(window.pageYOffset !== 0);
+    }
+    window.addEventListener("scroll", handleScroll);
+    console.log(isScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isScroll]);
+
   return (
     <div>
       {/* Header */}
-      <div className="sticky top-0 px-8 py-3 -mt-16 flex justify-between items-center z-10">
+      <div
+        className={`sticky top-0 px-8 py-3 -mt-16 flex justify-between items-center z-10 ${
+          isScroll &&
+          "bg-rich-black/10 backdrop-blur shadow-glass transition-all duration-300"
+        }`}
+      >
         <span className="w-24 font-logo gold-gradient text-4xl">Ineffable</span>
         <div className="space-x-8">
           <NavLink to="">Cocktails</NavLink>

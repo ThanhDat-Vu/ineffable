@@ -25,7 +25,7 @@ select::-ms-expand {
 }
 
 .gold-gradient {
-  /* display: inline; */
+  display: inline-block;
   background: linear-gradient(
     90deg,
     #ae8625 0%,
@@ -33,6 +33,42 @@ select::-ms-expand {
     #d2ac47 64%,
     #edc967 100%
   );
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.golden-border {
+  position: relative;
+}
+
+.golden-border::after {
+  content: "";
+  display: block;
+  width: 192px;
+  height: 192px;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  z-index: -2;
+  border: 2px solid;
+  border-image: linear-gradient(
+      90deg,
+      #ae8625 0%,
+      #f7ef8a 32%,
+      #d2ac47 64%,
+      #edc967 100%
+    )
+    1;
+}
+
+.golden-bar {
+  border-top: 2px solid;
+  border-image: linear-gradient(
+      90deg,
+      #ae8625 0%,
+      #f7ef8a 32%,
+      #d2ac47 64%,
+      #edc967 100%
+    )
+    1;
 }

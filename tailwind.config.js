@@ -14,7 +14,8 @@ module.exports = {
         "hero-image": "url('/src/assets/images/rum-smoke.jpg')",
       },
       boxShadow: {
-        glass: "2px 4px 32px 0px rgba(255, 255, 255, 0.08)",
+        glass: "2px 4px 24px 0px rgba(255, 255, 255, 0.08)",
+        goldenBorder: "8px 8px 0 0 white, 10px 10px 0 0",
       },
     },
   },
