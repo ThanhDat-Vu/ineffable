@@ -1,7 +1,12 @@
 import Layout from "../components/Layout";
-import { BsChevronDown, BsArrowDown } from "react-icons/bs";
+import { BsArrowDown } from "react-icons/bs";
+import Dropdown from "../components/Dropdown";
+import { useState } from "react";
 
 export default function Home() {
+  const [keyword, setKeyword] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -24,18 +29,22 @@ export default function Home() {
             Welcome, stranger! In this place, you can find almost every
             flavorsome cocktail recipe in the world!
           </p>
-          <form className="mt-2 mb-16 text-rich-black space-x-2">
+          <form className="mt-2 mb-16 text-gray-200 space-x-2">
             <input
               type="text"
               name="keyword"
               placeholder="Which drinks you would like to make?"
-              className="w-[32rem] p-3"
+              className="w-[32rem] p-3 bg-white/10 backdrop-blur focus:outline-0 focus:bg-white/20 shadow-glass"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
             ></input>
-            <span className="inline-block w-40 p-3 bg-white">
-              Cocktail
-              <BsChevronDown className="inline ml-12 -mt-1" />
-            </span>
-            <button className="px-6 py-3 bg-shiny-gold font-bold">
+            {/* Custom Select */}
+            <Dropdown
+              options={["Cocktail", "Ingredient"]}
+              selectedOption={selectedOption}
+              setSelectedOption={setSelectedOption}
+            />
+            <button className="px-6 py-3 bg-shiny-gold text-rich-black font-bold">
               Search
             </button>
           </form>
@@ -44,7 +53,7 @@ export default function Home() {
           <button className="px-6 py-3 mt-2 bg-gray-400 text-rich-black font-bold">
             Give me anything
           </button>
-          <BsArrowDown className="mt-32 text-xl" />
+          <BsArrowDown className="mt-32 text-xl animate-bounce" />
         </div>
       </div>
     </Layout>

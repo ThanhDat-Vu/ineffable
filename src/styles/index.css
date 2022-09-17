@@ -36,7 +36,3 @@ select::-ms-expand {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-.logo {
-  font-family: "Luxurious Script", cursive;
-}
