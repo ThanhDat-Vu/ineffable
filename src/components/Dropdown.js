@@ -6,6 +6,9 @@ export default function Dropdown({
   options,
   selectedOption,
   setSelectedOption,
+  className,
+  menuClassName,
+  itemClassName,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -15,9 +18,9 @@ export default function Dropdown({
   };
 
   return (
-    <OutsiderAlerter setFalse={setIsOpen} className="inline-block">
+    <OutsiderAlerter setFalse={setIsOpen} className="w-full">
       <div
-        className="inline-block w-40 p-3 bg-white/10 backdrop-blur shadow-glass relative cursor-pointer focus:bg-white/20"
+        className={`w-full cursor-pointer relative ${className}`}
         role="menu"
         tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
@@ -26,15 +29,17 @@ export default function Dropdown({
         {selectedOption || options[0]}
         <BsChevronDown className="absolute right-4 top-1/3" />
         {isOpen && (
-          <div className="absolute w-full left-0 top-12 bg-white/20 backdrop-blur shadow-glass cursor-pointer z-20">
+          <div
+            className={`w-full absolute left-0 cursor-pointer ${menuClassName}`}
+          >
             {options.map((opt) => (
               <div
                 key={opt}
-                className="p-3 hover:bg-white/10 cursor-pointer"
+                className={`cursor-pointer ${itemClassName}`}
                 role="menuitem"
                 tabIndex={0}
                 onClick={() => handleSelecting(opt)}
-                onKeyDown={() => setIsOpen(0)}
+                onKeyDown={() => setIsOpen(false)}
               >
                 {opt}
               </div>

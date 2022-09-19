@@ -23,107 +23,125 @@ export default function Home() {
   return (
     <Layout>
       {/* Hero Section */}
-      <div className="h-screen bg-hero-image bg-cover bg-center bg-fixed relative">
+      <div className="h-screen bg-hero-image bg-[length:auto_100%] sm:bg-cover bg-center bg-fixed relative">
         {/* Overlay */}
         <div className="w-full h-full bg-rich-black opacity-60"></div>
 
         {/* Quote */}
-        <div className="w-full absolute top-1/4 flex flex-col items-center">
-          <div className="text-xl border-l-2 pl-8">
+        <div className="absolute top-[20%] left-1/2 -translate-x-1/2">
+          <div className="w-max border-l-2 pl-4 sm:pl-8 text-sm sm:text-xl">
             <p>Searching for moments that are</p>
             <p className="font-bold">
-              too great or extreme to be expressed or described in words
+              too great or extreme <br className="md:hidden" />
+              to be expressed or described in words
             </p>
           </div>
         </div>
+
         {/* Search */}
-        <div className="w-full absolute top-[44%] flex flex-col items-center">
-          <p>
+        <div className="w-full absolute top-[40%] flex flex-col items-center">
+          {/* Intro */}
+          <p className="w-[22rem] sm:w-96 md:w-full text-center mb-4">
             Welcome, stranger! In this place, you can find almost every
             flavorsome cocktail recipe in the world!
           </p>
-          <form className="mt-2 mb-16 text-gray-200 space-x-2">
+
+          {/* Search Bar */}
+          <form className="mb-20 sm:mb-24 flex flex-col sm:flex-row">
             <input
               type="text"
               name="keyword"
               placeholder="Which drinks you would like to make?"
-              className="w-[32rem] p-3 bg-white/10 backdrop-blur shadow-glass focus:outline-0 focus:bg-white/20"
+              className="w-80 md:w-96 lg:w-[32rem] bg-white/10 p-3 backdrop-blur shadow-glass sm:mr-2 mb-2 sm:mb-0 focus:outline-0 focus:bg-white/20"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
             ></input>
+
             {/* Custom Select */}
-            <Dropdown
-              options={["Cocktail", "Ingredient"]}
-              selectedOption={selectedOption}
-              setSelectedOption={setSelectedOption}
-            />
-            <button className="px-6 py-3 bg-shiny-gold text-rich-black font-bold hover:brightness-125">
-              Search
-            </button>
+            <div className="flex space-x-2">
+              <div className="grow sm:w-40">
+                <Dropdown
+                  options={["Cocktail", "Ingredient"]}
+                  selectedOption={selectedOption}
+                  setSelectedOption={setSelectedOption}
+                  className="bg-white/10 p-3 backdrop-blur shadow-glass focus:bg-white/20"
+                  menuClassName="top-10 sm:top-12 bg-white/20 backdrop-blur shadow-glass"
+                  itemClassName="p-3 hover:bg-white/10"
+                />
+              </div>
+
+              <button className="text-rich-black font-bold bg-shiny-gold px-8 py-3 hover:brightness-125">
+                Search
+              </button>
+            </div>
           </form>
+
           {/* Random */}
           <p>Don’t tknow what to look for?</p>
-          <button className="px-6 py-3 mt-2 bg-gray-400 text-rich-black font-bold hover:brightness-125">
+          <button className="font-bold text-rich-black bg-gray-400 px-8 py-3 mt-2 hover:brightness-125">
             Give me anything
           </button>
-          <BsArrowDown className="mt-32 text-xl animate-bounce" />
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute top-[92%] w-full text-xl animate-bounce">
+          <BsArrowDown className="mx-auto" />
         </div>
       </div>
+
       {/* Popular Cocktails */}
-      <div className="py-16 w-max mx-auto space-y-8">
-        <h2 className="gold-gradient text-xl font-bold -ml-2">
+      <div className="w-max mx-auto py-16">
+        <h2 className="text-sm sm:text-xl gold-gradient font-bold mb-6 sm:mb-8">
           Popular Cocktails
         </h2>
-        <div className="w-max grid grid-cols-4 gap-x-32 gap-y-16">
+        <div className="w-max grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-32 gap-y-12 sm:gap-y-20 xl:gap-y-24">
           {popularCocktails?.map((cocktail) => (
             <div
               key={cocktail.idDrink}
-              className="text-center space-y-2 golden-border"
+              className="w-32 sm:w-48 h-32 sm:h-48 border sm:border-2 border-golden space-y-2 text-center"
             >
               <img
                 src={cocktail.strDrinkThumb}
                 alt={cocktail.strDrink}
-                className="w-48 shadow-glass"
+                className="relative top-1 sm:top-2 left-1 sm:left-2 w-full shadow-glass mb-4"
               />
               <p>{cocktail.strDrink}</p>
             </div>
           ))}
         </div>
-        <Link to="/" className="block italic text-center">
+        <Link to="/" className="block text-center italic mt-12 sm:mt-16">
           All Cocktails &gt;&gt;
         </Link>
       </div>
 
       {/* Quote */}
-      <div className="flex flex-col justify-center items-center space-y-8 my-8">
-        <hr className="w-60 golden-bar" />
-        <q className="text-center font-bold italic gold-gradient tracking-wide">
+      <div className="w-40 sm:w-56 h-16 sm:h-24 mx-auto border-y sm:border-y-2 border-golden sm:my-12">
+        <q className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-max text-center font-semibold italic gold-gradient tracking-wide">
           Every empty bottle is filled with a great story
         </q>
-        <hr className="w-60 golden-bar" />
       </div>
 
       {/* Popular Ingredients */}
-      <div className="py-16 w-max mx-auto space-y-8">
-        <h2 className="gold-gradient text-xl font-bold -ml-2">
+      <div className="w-max mx-auto py-16">
+        <h2 className="text-sm sm:text-xl gold-gradient font-bold mb-6 sm:mb-8">
           Popular Ingredients
         </h2>
-        <div className="w-max grid grid-cols-4 gap-x-32 gap-y-16">
+        <div className="w-max grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-32 gap-y-12 sm:gap-y-20 xl:gap-y-24">
           {popularIngredients?.map((ingredient) => (
             <div
               key={ingredient.idIngredient}
-              className="text-center space-y-2"
+              className="w-32 sm:w-48 h-32 sm:h-48 space-y-2 text-center"
             >
               <img
                 src={getIngredientImageUrl(ingredient.strIngredient)}
                 alt={ingredient.strIngredient}
-                className="w-48"
+                className="w-full mb-4"
               />
               <p>{ingredient.strIngredient}</p>
             </div>
           ))}
         </div>
-        <Link to="/" className="block italic text-center">
+        <Link to="/" className="block text-center italic mt-12 sm:mt-16">
           All Cocktails &gt;&gt;
         </Link>
       </div>
