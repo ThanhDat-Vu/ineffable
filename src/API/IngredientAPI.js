@@ -12,7 +12,6 @@ export async function getPopularIngredients() {
     let ingredient = await getIngredientByID(i);
     popularIngredients.push(ingredient);
   }
-  console.log(popularIngredients);
   return popularIngredients;
 }
 

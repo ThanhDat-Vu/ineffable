@@ -18,7 +18,6 @@ export default function Layout({ children }) {
       setIsScroll(window.pageYOffset !== 0);
     }
     window.addEventListener("scroll", handleScroll);
-    console.log(isScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -33,9 +32,12 @@ export default function Layout({ children }) {
           "bg-rich-black/10 backdrop-blur shadow-glass transition-all duration-300"
         }`}
       >
-        <span className="w-20 md:w-24 font-logo gold-gradient text-3xl md:text-4xl">
+        <Link
+          to="/"
+          className="w-20 md:w-24 font-logo gold-gradient text-3xl md:text-4xl"
+        >
           Ineffable
-        </span>
+        </Link>
         <div className="hidden md:block space-x-8">
           <NavLink to="">Cocktails</NavLink>
           <NavLink to="">Ingredients</NavLink>
@@ -67,9 +69,9 @@ export default function Layout({ children }) {
         <div className="px-8 pb-16 flex justify-between items-center md:items-start flex-col md:flex-row space-y-4">
           {/* Logo */}
           <div className="w-24 md:w-36">
-            <span className="w-24 font-logo gold-gradient text-4xl">
+            <Link to="" className="w-24 font-logo gold-gradient text-4xl">
               Ineffable
-            </span>
+            </Link>
           </div>
           <div className="space-y-2">
             {/* BotNav */}

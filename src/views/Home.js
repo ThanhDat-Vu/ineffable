@@ -13,12 +13,34 @@ export default function Home() {
   const [keyword, setKeyword] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
 
-  const [popularCocktails, setPopularCocktails] = useState([]);
-  const [popularIngredients, setPopularIngredients] = useState([]);
+  // Get Homepage Data
+  const [popularDrinks, setPopularDrinks] = useState(() => {
+    const sessionData = sessionStorage.getItem("popularDrinks");
+    return sessionData ? JSON.parse(sessionData) : [];
+  });
+  const [popularIngredients, setPopularIngredients] = useState(() => {
+    const sessionData = sessionStorage.getItem("popularIngredients");
+    return sessionData ? JSON.parse(sessionData) : [];
+  });
   useEffect(() => {
-    getPopularCocktails().then((res) => setPopularCocktails(res));
-    getPopularIngredients().then((res) => setPopularIngredients(res));
-  }, []);
+    if (!popularDrinks.length) {
+      getPopularCocktails().then((res) => {
+        setPopularDrinks(res);
+        sessionStorage.setItem("popularDrinks", JSON.stringify(res));
+      });
+    }
+    if (!popularIngredients.length) {
+      getPopularIngredients().then((res) => {
+        setPopularIngredients(res);
+        sessionStorage.setItem("popularIngredients", JSON.stringify(res));
+      });
+    }
+  }, [
+    popularDrinks,
+    setPopularDrinks,
+    popularIngredients,
+    setPopularIngredients,
+  ]);
 
   return (
     <Layout>
@@ -95,18 +117,19 @@ export default function Home() {
           Popular Cocktails
         </h2>
         <div className="w-max grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-32 gap-y-12 sm:gap-y-20 xl:gap-y-24">
-          {popularCocktails?.map((cocktail) => (
-            <div
-              key={cocktail.idDrink}
+          {popularDrinks?.map((drink) => (
+            <Link
+              to={`drinks/${drink.idDrink}`}
+              key={drink.idDrink}
               className="w-32 sm:w-48 h-32 sm:h-48 border sm:border-2 border-golden space-y-2 text-center"
             >
               <img
-                src={cocktail.strDrinkThumb}
-                alt={cocktail.strDrink}
+                src={drink.strDrinkThumb}
+                alt={drink.strDrink}
                 className="relative top-1 sm:top-2 left-1 sm:left-2 w-full shadow-glass mb-4"
               />
-              <p>{cocktail.strDrink}</p>
-            </div>
+              <p>{drink.strDrink}</p>
+            </Link>
           ))}
         </div>
         <Link to="/" className="block text-center italic mt-12 sm:mt-16">
