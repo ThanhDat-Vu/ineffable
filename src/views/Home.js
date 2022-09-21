@@ -3,11 +3,10 @@ import { BsArrowDown } from "react-icons/bs";
 import Dropdown from "../components/Dropdown";
 import { useState, useEffect } from "react";
 import { getPopularCocktails } from "../API/CocktailAPI";
-import {
-  getPopularIngredients,
-  getIngredientImageUrl,
-} from "../API/IngredientAPI";
+import { getPopularIngredients } from "../API/IngredientAPI";
 import { Link } from "react-router-dom";
+import RecipeCard from "../components/RecipeCard";
+import IngredientCard from "../components/IngredientCard";
 
 export default function Home() {
   const [keyword, setKeyword] = useState("");
@@ -113,23 +112,12 @@ export default function Home() {
 
       {/* Popular Cocktails */}
       <div className="w-max mx-auto py-16">
-        <h2 className="text-sm sm:text-xl gold-gradient font-bold mb-6 sm:mb-8">
+        <h2 className="text-sm sm:text-xl text-gold font-bold mb-6 sm:mb-8">
           Popular Cocktails
         </h2>
         <div className="w-max grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-32 gap-y-12 sm:gap-y-20 xl:gap-y-24">
-          {popularDrinks?.map((drink) => (
-            <Link
-              to={`drinks/${drink.idDrink}`}
-              key={drink.idDrink}
-              className="w-32 sm:w-48 h-32 sm:h-48 border sm:border-2 border-golden space-y-2 text-center"
-            >
-              <img
-                src={drink.strDrinkThumb}
-                alt={drink.strDrink}
-                className="relative top-1 sm:top-2 left-1 sm:left-2 w-full shadow-glass mb-4"
-              />
-              <p>{drink.strDrink}</p>
-            </Link>
+          {popularDrinks?.map((recipe) => (
+            <RecipeCard key={recipe.idDrink} recipe={recipe} />
           ))}
         </div>
         <Link to="/" className="block text-center italic mt-12 sm:mt-16">
@@ -139,29 +127,23 @@ export default function Home() {
 
       {/* Quote */}
       <div className="w-40 sm:w-56 h-16 sm:h-24 mx-auto border-y sm:border-y-2 border-golden sm:my-12">
-        <q className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-max text-center font-semibold italic gold-gradient tracking-wide">
+        <q className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-max text-center font-semibold italic text-gold tracking-wide">
           Every empty bottle is filled with a great story
         </q>
       </div>
 
       {/* Popular Ingredients */}
       <div className="w-max mx-auto py-16">
-        <h2 className="text-sm sm:text-xl gold-gradient font-bold mb-6 sm:mb-8">
+        <h2 className="text-sm sm:text-xl text-gold font-bold mb-6 sm:mb-8">
           Popular Ingredients
         </h2>
         <div className="w-max grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-32 gap-y-12 sm:gap-y-20 xl:gap-y-24">
-          {popularIngredients?.map((ingredient) => (
-            <div
+          {popularIngredients.map((ingredient) => (
+            <IngredientCard
               key={ingredient.idIngredient}
-              className="w-32 sm:w-48 h-32 sm:h-48 space-y-2 text-center"
-            >
-              <img
-                src={getIngredientImageUrl(ingredient.strIngredient)}
-                alt={ingredient.strIngredient}
-                className="w-full mb-4"
-              />
-              <p>{ingredient.strIngredient}</p>
-            </div>
+              ingredient={ingredient}
+              description={ingredient.strIngredient}
+            />
           ))}
         </div>
         <Link to="/" className="block text-center italic mt-12 sm:mt-16">

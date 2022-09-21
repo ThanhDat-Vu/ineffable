@@ -34,7 +34,7 @@ export default function Layout({ children }) {
       >
         <Link
           to="/"
-          className="w-20 md:w-24 font-logo gold-gradient text-3xl md:text-4xl"
+          className="w-20 md:w-24 font-logo text-gold text-3xl md:text-4xl"
         >
           Ineffable
         </Link>
@@ -69,7 +69,7 @@ export default function Layout({ children }) {
         <div className="px-8 pb-16 flex justify-between items-center md:items-start flex-col md:flex-row space-y-4">
           {/* Logo */}
           <div className="w-24 md:w-36">
-            <Link to="" className="w-24 font-logo gold-gradient text-4xl">
+            <Link to="" className="w-24 font-logo text-gold text-4xl">
               Ineffable
             </Link>
           </div>

@@ -6,6 +6,14 @@ export async function getIngredientByID(id) {
   return data.ingredients[0];
 }
 
+export async function getIngredientByName(name) {
+  const res = await fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${name}`
+  );
+  const data = await res.json();
+  return data.ingredients[0];
+}
+
 export async function getPopularIngredients() {
   const popularIngredients = [];
   for (let i = 1; i <= 4; i++) {
