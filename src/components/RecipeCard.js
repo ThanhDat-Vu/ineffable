@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-export default function RecipeCard({ recipe, withCaption = true }) {
+export default function RecipeCard({ recipe, className, withCaption = true }) {
   return (
     <Link
       to={`drinks/${recipe.idDrink}`}
-      className="block w-32 sm:w-48 h-32 sm:h-48 border sm:border-2 border-golden space-y-2 text-center"
+      className={`block border sm:border-2 border-golden space-y-2 text-center ${className}`}
     >
       <img
         src={recipe.strDrinkThumb}

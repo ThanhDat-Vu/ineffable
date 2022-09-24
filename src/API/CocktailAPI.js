@@ -3,7 +3,8 @@ export async function getCocktailByID(id) {
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
   );
   const data = await res.json();
-  return data.drinks[0];
+  console.log(data);
+  return data.drinks ? data.drinks[0] : {};
 }
 
 export async function getPopularCocktails() {

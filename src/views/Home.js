@@ -117,7 +117,11 @@ export default function Home() {
         </h2>
         <div className="w-max grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-32 gap-y-12 sm:gap-y-20 xl:gap-y-24">
           {popularDrinks?.map((recipe) => (
-            <RecipeCard key={recipe.idDrink} recipe={recipe} />
+            <RecipeCard
+              key={recipe.idDrink}
+              recipe={recipe}
+              className="w-32 sm:w-48 h-32 sm:h-48"
+            />
           ))}
         </div>
         <Link to="/" className="block text-center italic mt-12 sm:mt-16">

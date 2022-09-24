@@ -17,7 +17,6 @@ export default function Carousel({ children }) {
   useEffect(() => {
     maxIndex.current =
       carousel.current.scrollWidth / carousel.current.offsetWidth - 1;
-    console.log(carousel.current.scrollWidth + " " + maxIndex.current);
   }, [carousel?.current?.scrollWidth]);
 
   useEffect(() => {
@@ -25,22 +24,22 @@ export default function Carousel({ children }) {
   }, [index]);
 
   return (
-    <div className="flex items-stretch my-8">
+    <div className="flex items-stretch mt-8">
       <button
-        className="text-2xl text-gray-800 hover:text-white cursor-pointer flex items-center disabled:invisible"
+        className="hidden sm:flex text-2xl text-gray-800 hover:text-white cursor-pointer items-center disabled:invisible"
         onClick={movePrev}
         disabled={index < 1}
       >
         <AiOutlineLeft />
       </button>
       <div
-        className="w-[68rem] overflow-hidden scroll-smooth scroll-ml-0"
+        className="w-screen sm:w-[68rem] overflow-scroll sm:overflow-hidden scroll-smooth scroll-ml-0 pb-8 -ml-2 -mr-8 sm:mx-0"
         ref={carousel}
       >
-        <div className="w-max space-x-8">{children}</div>
+        <div className="w-max space-x-4 sm:space-x-8">{children}</div>
       </div>
       <button
-        className="ml-4 text-2xl text-gray-800 hover:text-white cursor-pointer flex items-center disabled:invisible"
+        className="hidden sm:flex ml-4 text-2xl text-gray-800 hover:text-white cursor-pointer items-center disabled:invisible"
         onClick={moveNext}
         disabled={index >= maxIndex.current}
       >
