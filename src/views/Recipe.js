@@ -1,9 +1,10 @@
 import Layout from "../components/Layout";
 import { Link, useLoaderData } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
+import { useEffect, useState } from "react";
 import { getIngredientByName } from "../API/IngredientAPI";
 import IngredientCard from "../components/IngredientCard";
-import { useEffect, useState } from "react";
+import Carousel from "../components/Carousel";
 
 export default function Recipe() {
   const recipe = useLoaderData();
@@ -63,7 +64,7 @@ export default function Recipe() {
             <div>
               <h3 className="w-64 font-bold">Ingredients</h3>
               {/* Carousel */}
-              <div className="flex">
+              <Carousel>
                 {ingredients.map((ingredient) => (
                   <IngredientCard
                     key={ingredient.idIngredient}
@@ -71,7 +72,7 @@ export default function Recipe() {
                     description={ingredient.description}
                   />
                 ))}
-              </div>
+              </Carousel>
             </div>
           </div>
           <div>
