@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { listCocktailsByIngredient } from "../API/CocktailAPI";
 import { getIngredientImageUrl } from "../API/IngredientAPI";
 import Breadcrumb from "../components/Breadcrumb";
 import Layout from "../components/Layout";
+import Pagination from "../components/Pagination";
 import RecipeCard from "../components/RecipeCard";
 
 export default function Ingredient() {
@@ -15,6 +16,20 @@ export default function Ingredient() {
       setDrinks(res)
     );
   }, [ingredient]);
+
+  const [showLess, setShowLess] = useState(true);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const PAGE_COUNT = 16;
+
+  const currentPageData = useMemo(() => {
+    const firstIndex = (currentPage - 1) * PAGE_COUNT;
+    const lastIndex = firstIndex + PAGE_COUNT;
+    return drinks.slice(firstIndex, lastIndex);
+  }, [drinks, currentPage]);
+
+  const drinkSection = useRef();
 
   return (
     <Layout>
@@ -48,11 +63,19 @@ export default function Ingredient() {
               <div className="w-full md:w-[32rem]">
                 {ingredient.strDescription ? (
                   <>
-                    <p className="h-48 leading-8 text-clip overflow-hidden text-justify">
+                    <p
+                      className={`${
+                        showLess && "h-48"
+                      } leading-8 text-clip overflow-hidden text-justify`}
+                    >
                       {ingredient.strDescription}
                     </p>
-
-                    <button className="italic">...Read more</button>
+                    <button
+                      className="italic"
+                      onClick={() => setShowLess(!showLess)}
+                    >
+                      {showLess ? "...Read more" : "Read less"}
+                    </button>
                   </>
                 ) : (
                   <p>No description</p>
@@ -62,7 +85,7 @@ export default function Ingredient() {
           </div>
 
           {/* Images */}
-          <div className="w-56 mx-auto lg:ml-8">
+          <div className="w-56 mx-auto lg:mr-0 lg:ml-auto">
             <img
               src={getIngredientImageUrl(ingredient.strIngredient)}
               alt={ingredient.strIngredient}
@@ -72,10 +95,10 @@ export default function Ingredient() {
         </div>
 
         {/* Drinks */}
-        <div>
+        <div className="mb-16" ref={drinkSection}>
           <h3 className="w-64 text-sm lg:text-lg font-bold mb-8">Drinks</h3>
           <div className="w-max mx-auto grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-24 gap-y-12 sm:gap-y-20">
-            {drinks?.map((recipe) => (
+            {currentPageData?.map((recipe) => (
               <RecipeCard
                 key={recipe.idDrink}
                 recipe={recipe}
@@ -84,6 +107,17 @@ export default function Ingredient() {
             ))}
           </div>
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          totalCount={drinks.length}
+          pageCount={PAGE_COUNT}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          onPageChange={() =>
+            window.scrollTo(0, drinkSection.current.offsetTop - 80)
+          }
+        />
       </div>
     </Layout>
   );
