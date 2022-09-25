@@ -3,6 +3,8 @@ import Home from "../views/Home";
 import Recipe from "../views/Recipe";
 import { getCocktailByID } from "../API/CocktailAPI";
 import { ErrorBoundary } from "../components/ErrorBoundary";
+import Ingredient from "../views/Ingredient";
+import { getIngredientByName } from "../API/IngredientAPI";
 
 async function drinkLoader({ params }) {
   let recipe = await getCocktailByID(params.id);
@@ -15,6 +17,10 @@ async function drinkLoader({ params }) {
   };
 }
 
+async function ingredientLoader({ params }) {
+  return await getIngredientByName(params.name);
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,6 +30,12 @@ const router = createBrowserRouter([
     path: "drinks/:id",
     loader: drinkLoader,
     element: <Recipe />,
+    errorElement: <ErrorBoundary />,
+  },
+  {
+    path: "ingredients/:name",
+    loader: ingredientLoader,
+    element: <Ingredient />,
     errorElement: <ErrorBoundary />,
   },
 ]);

@@ -4,7 +4,7 @@ import { getIngredientImageUrl } from "../API/IngredientAPI";
 export default function IngredientCard({ ingredient, description }) {
   return (
     <Link
-      to={`ingredients/${ingredient.idIngredient}`}
+      to={`/ingredients/${ingredient.strIngredient}`}
       className="inline-block w-32 sm:w-48 space-y-2 text-center"
     >
       <img

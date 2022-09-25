@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getIngredientByName } from "../API/IngredientAPI";
 import IngredientCard from "../components/IngredientCard";
 import Carousel from "../components/Carousel";
+import Breadcrumb from "../components/Breadcrumb";
 
 export default function Recipe() {
   const recipe = useLoaderData();
@@ -29,20 +30,7 @@ export default function Recipe() {
   return (
     <Layout>
       <div className="w-full xl:w-max xl:mx-auto px-8 xl:px-0 my-24 lg:my-32">
-        {/* Breadcrumb */}
-        <div className="w-max mx-auto lg:w-auto italic text-gray-400">
-          <Link to="/" className="hover:text-white">
-            Home
-          </Link>
-          /
-          <Link to="/cocktails" className="hover:text-white">
-            Cocktails
-          </Link>
-          /
-          <Link to="." className="text-white">
-            {recipe.strDrink}
-          </Link>
-        </div>
+        <Breadcrumb intermediate="Cocktails" current={recipe.strDrink} />
         {/* Special Layout */}
         <div className="relative">
           {/* Title */}
@@ -54,7 +42,7 @@ export default function Recipe() {
 
           {/* Drink Image */}
           {/* Special Layout: Top-Right to Top */}
-          <div className="w-max mx-auto lg:absolute top-8 right-0">
+          <div className="image first-letter:w-max mx-auto lg:absolute top-8 right-0">
             <RecipeCard
               recipe={recipe}
               withCaption={false}
@@ -79,7 +67,7 @@ export default function Recipe() {
                 <h3 className="w-64 text-sm lg:text-lg font-bold mb-2">
                   Instructions
                 </h3>
-                <ol className="w-96 xl:w-max leading-6 lg:leading-8 space-y-2">
+                <ol className="w-96 xl:w-[32rem] leading-6 lg:leading-8 space-y-2">
                   {recipe.strInstructions.match(/[^.]+\./g).map((step, i) => (
                     <li key={i}>{`${i + 1}. ${step}`}</li>
                   ))}
@@ -107,7 +95,7 @@ export default function Recipe() {
           <div className="flex flex-col lg:flex-row mb-12">
             <h3 className="w-64 text-sm lg:text-lg font-bold mb-4">Tags</h3>
             <p>
-              {recipe.strTags.split(/(?<=,)/).map((tag, i) => (
+              {recipe.strTags?.split(/(?<=,)/).map((tag, i) => (
                 <Link key={i} className="italic">
                   {tag}&nbsp;
                 </Link>
