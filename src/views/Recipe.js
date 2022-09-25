@@ -28,9 +28,9 @@ export default function Recipe() {
 
   return (
     <Layout>
-      <div className="w-full sm:w-max sm:mx-auto px-8 sm:px-0 my-24 sm:my-32">
+      <div className="w-full xl:w-max xl:mx-auto px-8 xl:px-0 my-24 lg:my-32">
         {/* Breadcrumb */}
-        <div className="w-max mx-auto sm:w-auto italic text-gray-400">
+        <div className="w-max mx-auto lg:w-auto italic text-gray-400">
           <Link to="/" className="hover:text-white">
             Home
           </Link>
@@ -46,40 +46,40 @@ export default function Recipe() {
         {/* Special Layout */}
         <div className="relative">
           {/* Title */}
-          <div className="w-max sm:w-full mx-auto">
-            <h2 className="text-gold text-xl sm:text-2xl font-bold mx-auto sm:ml-64 mt-8 mb-4 sm:my-8">
+          <div className="w-max lg:w-full mx-auto">
+            <h2 className="text-gold text-xl lg:text-2xl font-bold mx-auto lg:ml-64 mt-8 mb-4 lg:my-8">
               {recipe.strDrink}
             </h2>
           </div>
 
           {/* Drink Image */}
           {/* Special Layout: Top-Right to Top */}
-          <div className="w-max mx-auto sm:absolute top-8 right-0">
+          <div className="w-max mx-auto lg:absolute top-8 right-0">
             <RecipeCard
               recipe={recipe}
               withCaption={false}
-              className="w-56 h-56 sm:w-64 sm:h-64"
+              className="w-56 h-56 lg:w-64 lg:h-64"
             />
           </div>
 
-          <div className="flex flex-col-reverse sm:flex-col">
+          <div className="flex flex-col-reverse lg:flex-col">
             {/* Special Layout: Top-Left to Bot */}
             {/* Recipe */}
-            <div className="sm:mr-64">
+            <div className="lg:mr-64 lg:pr-8">
               {/* Glass */}
-              <div className="flex flex-col sm:flex-row">
-                <h3 className="w-64 text-sm sm:text-lg font-bold mb-4">
+              <div className="flex flex-col lg:flex-row">
+                <h3 className="w-64 text-sm lg:text-lg font-bold mb-4">
                   Glass
                 </h3>
                 <p>Serve: {recipe.strGlass}</p>
               </div>
 
               {/* Instructions */}
-              <div className="flex flex-col sm:flex-row my-12 sm:mt-8 sm:mb-0">
-                <h3 className="w-64 text-sm sm:text-lg font-bold mb-2">
+              <div className="flex flex-col lg:flex-row my-12 lg:mt-8 lg:mb-0">
+                <h3 className="w-64 text-sm lg:text-lg font-bold mb-2">
                   Instructions
                 </h3>
-                <ol className="max-w-full leading-6 sm:leading-8 space-y-2">
+                <ol className="w-96 xl:w-max leading-6 lg:leading-8 space-y-2">
                   {recipe.strInstructions.match(/[^.]+\./g).map((step, i) => (
                     <li key={i}>{`${i + 1}. ${step}`}</li>
                   ))}
@@ -88,8 +88,8 @@ export default function Recipe() {
             </div>
             {/* Special Layout: Bot to Mid */}
             {/* Ingredients */}
-            <div className="mt-12 mb-4">
-              <h3 className="w-64 text-sm sm:text-lg font-bold">Ingredients</h3>
+            <div className="mt-12 mb-8">
+              <h3 className="w-64 text-sm lg:text-lg font-bold">Ingredients</h3>
               {/* Carousel */}
               <Carousel>
                 {ingredients.map((ingredient) => (
@@ -104,8 +104,8 @@ export default function Recipe() {
           </div>
 
           {/* Tags */}
-          <div className="flex flex-col sm:flex-row mb-12">
-            <h3 className="w-64 text-sm sm:text-lg font-bold mb-4">Tags</h3>
+          <div className="flex flex-col lg:flex-row mb-12">
+            <h3 className="w-64 text-sm lg:text-lg font-bold mb-4">Tags</h3>
             <p>
               {recipe.strTags.split(/(?<=,)/).map((tag, i) => (
                 <Link key={i} className="italic">

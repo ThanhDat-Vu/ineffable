@@ -26,20 +26,20 @@ export default function Carousel({ children }) {
   return (
     <div className="flex items-stretch mt-8">
       <button
-        className="hidden sm:flex text-2xl text-gray-800 hover:text-white cursor-pointer items-center disabled:invisible"
+        className="hidden lg:flex text-2xl text-gray-800 hover:text-white cursor-pointer items-center disabled:invisible"
         onClick={movePrev}
         disabled={index < 1}
       >
         <AiOutlineLeft />
       </button>
       <div
-        className="w-screen sm:w-[68rem] overflow-scroll sm:overflow-hidden scroll-smooth scroll-ml-0 pb-8 -ml-2 -mr-8 sm:mx-0"
+        className="w-screen lg:w-[54rem] xl:w-[68rem] overflow-x-scroll lg:overflow-hidden scroll-smooth scroll-ml-0 pb-4 -ml-2 -mr-8 lg:mx-0"
         ref={carousel}
       >
-        <div className="w-max space-x-4 sm:space-x-8">{children}</div>
+        <div className="w-max space-x-4 lg:space-x-8">{children}</div>
       </div>
       <button
-        className="hidden sm:flex ml-4 text-2xl text-gray-800 hover:text-white cursor-pointer items-center disabled:invisible"
+        className="hidden lg:flex ml-4 text-2xl text-gray-800 hover:text-white cursor-pointer items-center disabled:invisible"
         onClick={moveNext}
         disabled={index >= maxIndex.current}
       >
