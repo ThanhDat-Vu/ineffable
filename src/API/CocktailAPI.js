@@ -7,6 +7,15 @@ export async function getCocktailByID(id) {
   return data.drinks ? data.drinks[0] : {};
 }
 
+export async function getRandomCocktail() {
+  const res = await fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/random.php`
+  );
+  const data = await res.json();
+  // console.log(data.drinks);
+  return data.drinks ? data.drinks[0] : {};
+}
+
 export async function searchCocktailsByName(name) {
   const res = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
@@ -36,7 +45,6 @@ export async function listCocktailsByIngredient(ingredient) {
     `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
   );
   const data = await res.json();
-  console.log(data);
   return data.drinks || [];
 }
 

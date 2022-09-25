@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../views/Home";
 import Recipe from "../views/Recipe";
-import { getCocktailByID } from "../API/CocktailAPI";
+import { getCocktailByID, getRandomCocktail } from "../API/CocktailAPI";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import Ingredient from "../views/Ingredient";
 import { getIngredientByName } from "../API/IngredientAPI";
@@ -15,6 +15,10 @@ async function drinkLoader({ params }) {
     strPrevDrink: prevDrink.strDrink,
     strNextDrink: nextDrink.strDrink,
   };
+}
+
+async function randomLoader() {
+  return await getRandomCocktail();
 }
 
 async function ingredientLoader({ params }) {
@@ -37,6 +41,11 @@ const router = createBrowserRouter([
     loader: ingredientLoader,
     element: <Ingredient />,
     errorElement: <ErrorBoundary />,
+  },
+  {
+    path: "drinks/random",
+    loader: randomLoader,
+    element: <Recipe />,
   },
 ]);
 

@@ -16,9 +16,9 @@ export default function Pagination({
   const maxPage = Math.ceil(totalCount / pageCount);
 
   function changePage(index) {
+    onPageChange();
     setCurrentPage(index);
     setPageInput(index);
-    onPageChange();
   }
 
   function movePrev() {
@@ -39,8 +39,7 @@ export default function Pagination({
       pageInput > 0 &&
       pageInput <= maxPage
     ) {
-      setCurrentPage(pageInput);
-      onPageChange();
+      changePage(pageInput);
     } else {
       setPageInput(currentPage);
     }
@@ -53,14 +52,14 @@ export default function Pagination({
       <button
         className="p-2 disabled:text-gray-800"
         onClick={() => changePage(1)}
-        disabled={currentPage === 1}
+        disabled={currentPage <= 1}
       >
         <AiOutlineVerticalRight />
       </button>
       <button
         className="p-2 disabled:text-gray-800"
         onClick={movePrev}
-        disabled={currentPage === 1}
+        disabled={currentPage <= 1}
       >
         <AiOutlineLeft />
       </button>
@@ -83,14 +82,14 @@ export default function Pagination({
       <button
         className="p-2 disabled:text-gray-800"
         onClick={moveNext}
-        disabled={currentPage === maxPage}
+        disabled={currentPage >= maxPage}
       >
         <AiOutlineRight />
       </button>
       <button
         className="p-2 disabled:text-gray-800"
         onClick={() => changePage(maxPage)}
-        disabled={currentPage === maxPage}
+        disabled={currentPage >= maxPage}
       >
         <AiOutlineVerticalLeft />
       </button>

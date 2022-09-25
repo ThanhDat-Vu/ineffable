@@ -99,9 +99,12 @@ export default function Home() {
 
           {/* Random */}
           <p>Don’t tknow what to look for?</p>
-          <button className="font-bold text-rich-black bg-gray-400 px-8 py-3 mt-2 hover:brightness-125">
+          <Link
+            to="/drinks/random"
+            className="font-bold text-rich-black bg-gray-400 px-8 py-3 mt-2 hover:brightness-125"
+          >
             Give me anything
-          </button>
+          </Link>
         </div>
 
         {/* Scroll Indicator */}
