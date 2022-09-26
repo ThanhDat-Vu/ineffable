@@ -157,7 +157,7 @@ export default function Home() {
           ))}
         </div>
         <Link to="/" className="block text-center italic mt-12 sm:mt-16">
-          All Cocktails &gt;&gt;
+          All Ingredients &gt;&gt;
         </Link>
       </div>
     </Layout>

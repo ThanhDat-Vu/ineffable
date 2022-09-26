@@ -2,14 +2,17 @@ import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { listAllCocktails } from "../API/CocktailAPI";
-import Pagination from "../components/Pagination";
+import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
 import RecipeCard from "../components/RecipeCard";
+import Pagination from "../components/Pagination";
 
 export default function Cocktails() {
   const [cocktails, setCocktails] = useState([]);
   useEffect(() => {
     listAllCocktails().then((res) => setCocktails(res));
   }, []);
+
+  // Pagination
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -25,13 +28,18 @@ export default function Cocktails() {
 
   const skeletons = [...Array(32).keys()];
 
+  // Filters & Sort
+  const [ascending, setAscending] = useState(true);
+
+  function sortData() {
+    setAscending(!ascending);
+    setCocktails(cocktails.slice().reverse());
+  }
+
   return (
     <Layout>
       <div className="w-full xl:w-max xl:mx-auto px-8 xl:px-0 my-24 lg:my-32">
         <Breadcrumb intermediate="Cocktails" current="All" />
-        {currentPageData.length
-          ? console.log(currentPageData)
-          : console.log("hi")}
 
         {/* Title */}
         <div className="w-max mx-auto">
@@ -40,9 +48,30 @@ export default function Cocktails() {
           </h2>
         </div>
 
+        {/* Sort & Filter */}
+        <div className="flex text-2xl mb-12">
+          <button className="w-max mr-auto p-2 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black text-base">
+            <BsSliders />
+          </button>
+          <button
+            className="w-max p-1 border border-shiny-gold mr-2 hover:bg-shiny-gold disabled:bg-shiny-gold disabled:text-rich-black"
+            onClick={sortData}
+            disabled={ascending}
+          >
+            <BsSortAlphaDown />
+          </button>
+          <button
+            className="w-max p-1 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black disabled:bg-shiny-gold disabled:text-rich-black"
+            onClick={sortData}
+            disabled={!ascending}
+          >
+            <BsSortAlphaDownAlt />
+          </button>
+        </div>
+
         {/* Cocktail Cards */}
         <div
-          className="w-max mt-4 mb-16 grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-24 gap-y-12 sm:gap-y-20 xl:gap-y-24"
+          className="w-max mx-auto mt-4 mb-16 grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-24 gap-y-12 sm:gap-y-20 xl:gap-y-24"
           ref={cocktailsRef}
         >
           {cocktails.length
