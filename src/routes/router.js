@@ -5,6 +5,7 @@ import { getCocktailByID, getRandomCocktail } from "../API/CocktailAPI";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import Ingredient from "../views/Ingredient";
 import { getIngredientByName } from "../API/IngredientAPI";
+import Cocktails from "../views/Cocktails";
 
 async function drinkLoader({ params }) {
   let recipe = await getCocktailByID(params.id);
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
     path: "drinks/random",
     loader: randomLoader,
     element: <Recipe />,
+  },
+  {
+    path: "cocktails",
+    element: <Cocktails />,
   },
 ]);
 

@@ -7,10 +7,7 @@ export default function Breadcrumb({ intermediate, current }) {
         Home
       </Link>
       /
-      <Link
-        to={`/cocktails/${intermediate.toLowerCase}`}
-        className="hover:text-white"
-      >
+      <Link to={`/${intermediate.toLowerCase()}`} className="hover:text-white">
         {intermediate}
       </Link>
       /

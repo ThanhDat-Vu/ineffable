@@ -39,7 +39,7 @@ export default function Layout({ children }) {
           Ineffable
         </Link>
         <div className="hidden md:block space-x-8">
-          <NavLink to="">Cocktails</NavLink>
+          <NavLink to="/cocktails">Cocktails</NavLink>
           <NavLink to="">Ingredients</NavLink>
           <NavLink to="">Categories</NavLink>
         </div>
