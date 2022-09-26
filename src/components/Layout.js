@@ -1,5 +1,5 @@
 // https://reactrouter.com/en/main/components/nav-link
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, ScrollRestoration } from "react-router-dom";
 import { AiOutlineRight, AiOutlineMenu } from "react-icons/ai";
 import {
   FaFacebookF,
@@ -102,6 +102,7 @@ export default function Layout({ children }) {
           </div>
         </div>
       </div>
+      <ScrollRestoration />
     </div>
   );
 }
