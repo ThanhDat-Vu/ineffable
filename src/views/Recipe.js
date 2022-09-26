@@ -68,7 +68,7 @@ export default function Recipe() {
                   Instructions
                 </h3>
                 <ol className="w-96 xl:w-[32rem] leading-6 lg:leading-8 space-y-2">
-                  {recipe.strInstructions.match(/[^.]+\./g).map((step, i) => (
+                  {recipe.strInstructions.match(/[^.]+\./g)?.map((step, i) => (
                     <li key={i}>{`${i + 1}. ${step}`}</li>
                   ))}
                 </ol>

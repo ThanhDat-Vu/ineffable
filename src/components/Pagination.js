@@ -21,6 +21,12 @@ export default function Pagination({
     setPageInput(index);
   }
 
+  function moveFirst() {
+    if (currentPage != 1) {
+      changePage(1);
+    }
+  }
+
   function movePrev() {
     if (currentPage > 1) {
       changePage(Number(currentPage) - 1);
@@ -30,6 +36,12 @@ export default function Pagination({
   function moveNext() {
     if (currentPage < maxPage) {
       changePage(Number(currentPage) + 1);
+    }
+  }
+
+  function moveLast() {
+    if (currentPage != maxPage) {
+      changePage(maxPage);
     }
   }
 
@@ -50,16 +62,16 @@ export default function Pagination({
   return (
     <div className="w-max mx-auto flex">
       <button
-        className="p-2 disabled:text-gray-800"
-        onClick={() => changePage(1)}
-        disabled={currentPage <= 1}
+        className={`p-2 ${currentPage <= 1 && "text-gray-800"}`}
+        onClick={moveFirst}
+        // disabled={currentPage <= 1}
       >
         <AiOutlineVerticalRight />
       </button>
       <button
-        className="p-2 disabled:text-gray-800"
+        className={`p-2 ${currentPage <= 1 && "text-gray-800"}`}
         onClick={movePrev}
-        disabled={currentPage <= 1}
+        // disabled={currentPage <= 1}
       >
         <AiOutlineLeft />
       </button>
@@ -80,16 +92,16 @@ export default function Pagination({
         <span className="inline-block w-1/2">/{maxPage}</span>
       </div>
       <button
-        className="p-2 disabled:text-gray-800"
+        className={`p-2 ${currentPage >= maxPage && "text-gray-800"}`}
         onClick={moveNext}
-        disabled={currentPage >= maxPage}
+        // disabled={currentPage >= maxPage}
       >
         <AiOutlineRight />
       </button>
       <button
-        className="p-2 disabled:text-gray-800"
-        onClick={() => changePage(maxPage)}
-        disabled={currentPage >= maxPage}
+        className={`p-2 ${currentPage >= maxPage && "text-gray-800"}`}
+        onClick={moveLast}
+        // disabled={currentPage >= maxPage}
       >
         <AiOutlineVerticalLeft />
       </button>
