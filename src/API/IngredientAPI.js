@@ -1,3 +1,13 @@
+export async function listAllIngredientNames() {
+  const res = await fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list`
+  );
+  const data = await res.json();
+  return data.drinks.sort((a, b) =>
+    a.strIngredient1.localeCompare(b.strIngredient1)
+  );
+}
+
 export async function getIngredientByID(id) {
   const res = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=${id}`

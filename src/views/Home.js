@@ -151,12 +151,14 @@ export default function Home() {
           {popularIngredients.map((ingredient) => (
             <IngredientCard
               key={ingredient.idIngredient}
-              ingredient={ingredient}
-              description={ingredient.strIngredient}
+              ingredientName={ingredient.strIngredient}
             />
           ))}
         </div>
-        <Link to="/" className="block text-center italic mt-12 sm:mt-16">
+        <Link
+          to="/ingredients"
+          className="block text-center italic mt-12 sm:mt-16"
+        >
           All Ingredients &gt;&gt;
         </Link>
       </div>

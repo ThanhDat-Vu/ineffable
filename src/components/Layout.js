@@ -40,7 +40,7 @@ export default function Layout({ children }) {
         </Link>
         <div className="hidden md:block space-x-8">
           <NavLink to="/cocktails">Cocktails</NavLink>
-          <NavLink to="">Ingredients</NavLink>
+          <NavLink to="/ingredients">Ingredients</NavLink>
           <NavLink to="">Categories</NavLink>
         </div>
         <div className="md:hidden p-1 text-2xl">

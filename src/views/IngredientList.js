@@ -1,15 +1,15 @@
 import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { listAllCocktails } from "../API/CocktailAPI";
+import { listAllIngredientNames } from "../API/IngredientAPI";
 import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
-import RecipeCard from "../components/RecipeCard";
+import IngredientCard from "../components/IngredientCard";
 import Pagination from "../components/Pagination";
 
-export default function Cocktails() {
-  const [cocktails, setCocktails] = useState([]);
+export default function CocktailList() {
+  const [ingredientNames, setIngredientNames] = useState([]);
   useEffect(() => {
-    listAllCocktails().then((res) => setCocktails(res));
+    listAllIngredientNames().then((res) => setIngredientNames(res));
   }, []);
 
   // Pagination
@@ -21,10 +21,10 @@ export default function Cocktails() {
   const currentPageData = useMemo(() => {
     const firstIndex = (currentPage - 1) * PAGE_COUNT;
     const lastIndex = firstIndex + PAGE_COUNT;
-    return cocktails.slice(firstIndex, lastIndex);
-  }, [cocktails, currentPage]);
+    return ingredientNames.slice(firstIndex, lastIndex);
+  }, [ingredientNames, currentPage]);
 
-  const cocktailsRef = useRef();
+  const ingredientsRef = useRef();
 
   const skeletons = [...Array(32).keys()];
 
@@ -33,18 +33,19 @@ export default function Cocktails() {
 
   function sortData() {
     setAscending(!ascending);
-    setCocktails(cocktails.slice().reverse());
+    setIngredientNames(ingredientNames.slice().reverse());
   }
 
   return (
     <Layout>
       <div className="w-full xl:w-max xl:mx-auto px-8 xl:px-0 my-24 lg:my-32">
-        <Breadcrumb intermediate="Cocktails" current="All" />
+        <Breadcrumb intermediate="Ingredients" current="All" />
 
         {/* Title */}
         <div className="w-max mx-auto">
           <h2 className="text-gold text-xl lg:text-2xl font-bold mt-8 mb-4 lg:my-8">
-            All Cocktail {cocktails.length > 0 && `(${cocktails.length})`}
+            All Ingredients{" "}
+            {ingredientNames.length > 0 && `(${ingredientNames.length})`}
           </h2>
         </div>
 
@@ -69,36 +70,32 @@ export default function Cocktails() {
           </button>
         </div>
 
-        {/* Cocktail Cards */}
+        {/* Ingredient Cards */}
         <div
           className="w-max mx-auto mt-4 mb-16 grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-24 gap-y-12 sm:gap-y-20 xl:gap-y-24"
-          ref={cocktailsRef}
+          ref={ingredientsRef}
         >
-          {cocktails.length
-            ? currentPageData?.map((recipe) => (
-                <RecipeCard
-                  key={recipe.idDrink}
-                  recipe={recipe}
+          {ingredientNames.length
+            ? currentPageData?.map((ingredient) => (
+                <IngredientCard
+                  key={ingredient.strIngredient1}
+                  ingredientName={ingredient.strIngredient1}
                   className="w-32 sm:w-48 h-32 sm:h-48"
                 />
               ))
             : skeletons?.map((i) => (
-                <RecipeCard
-                  key={i}
-                  recipe={null}
-                  className="w-32 sm:w-48 h-32 sm:h-48"
-                />
+                <IngredientCard key={i} className="w-32 sm:w-48 h-32 sm:h-48" />
               ))}
         </div>
 
         {/* Pagination */}
         <Pagination
-          totalCount={cocktails.length}
+          totalCount={ingredientNames.length}
           pageCount={PAGE_COUNT}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           onPageChange={() =>
-            window.scrollTo(0, cocktailsRef.current.offsetTop - 80)
+            window.scrollTo(0, ingredientsRef.current.offsetTop - 80)
           }
         />
       </div>

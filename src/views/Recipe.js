@@ -83,7 +83,7 @@ export default function Recipe() {
                 {ingredients.map((ingredient) => (
                   <IngredientCard
                     key={ingredient.idIngredient}
-                    ingredient={ingredient}
+                    ingredientName={ingredient.strIngredient}
                     description={ingredient.description}
                   />
                 ))}
