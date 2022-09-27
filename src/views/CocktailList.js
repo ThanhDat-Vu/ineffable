@@ -10,6 +10,7 @@ export default function CocktailList() {
   const [cocktails, setCocktails] = useState([]);
   useEffect(() => {
     listAllCocktails().then((res) => setCocktails(res));
+    // console.log(cocktails.map((i) => i.strDrink));
   }, []);
 
   // Pagination
