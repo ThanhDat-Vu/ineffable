@@ -48,7 +48,6 @@ export default function Layout({ children }) {
               placeholder="Categories"
               options={categories}
               styles={{
-                fieldStyles: "",
                 menuStyle:
                   "w-max right-0 bg-rich-black/10 backdrop-blur shadow-glass mt-4 text-right",
                 optionStyle: "p-3 hover:bg-white/10",

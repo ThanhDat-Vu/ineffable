@@ -69,7 +69,7 @@ export default function Home() {
           </p>
 
           {/* Search Bar */}
-          <form className="mb-20 sm:mb-24 flex flex-col sm:flex-row">
+          <form className="mb-20 sm:mb-24 flex flex-col sm:flex-row z-0">
             <SearchBox />
 
             {/* Custom Select */}

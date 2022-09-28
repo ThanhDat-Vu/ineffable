@@ -7,23 +7,15 @@ import OutsiderAlerter from "./OutsiderAlerter";
  * @param {string} props.placeholder
  * @param {Array} props.options
  * @param {{ fieldStyle: string, menuStyle: string, optionStyle: string}} props.styles
- * @param {function} [props.onClick]
  * @param {function} [props.onSelect]
  */
-export default function Dropdown({
-  placeholder,
-  options,
-  styles,
-  onClick,
-  onSelect,
-}) {
+export default function Dropdown({ placeholder, options, styles, onSelect }) {
   // Behaviors
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelecting = (opt) => {
     setIsOpen(false);
-    if (onClick) onClick();
-    if (onSelect) onSelect(opt);
+    onSelect(opt);
   };
 
   return (
