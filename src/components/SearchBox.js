@@ -22,7 +22,7 @@ export default function SearchBox() {
   };
 
   return (
-    <div className='className="w-80 md:w-96 lg:w-[32rem] sm:mr-2 relative'>
+    <div className='className="w-80 md:w-96 lg:w-[32rem] sm:mr-2 relative z-10'>
       <Turnstone
         id="search"
         name="search"
