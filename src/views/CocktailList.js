@@ -2,7 +2,12 @@ import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { listAllCocktails } from "../API/CocktailAPI";
-import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
+import {
+  BsChevronDown,
+  BsSliders,
+  BsSortAlphaDown,
+  BsSortAlphaDownAlt,
+} from "react-icons/bs";
 import RecipeCard from "../components/RecipeCard";
 import Pagination from "../components/Pagination";
 
@@ -30,12 +35,17 @@ export default function CocktailList() {
   const skeletons = [...Array(32).keys()];
 
   // Filters & Sort
+
   const [ascending, setAscending] = useState(true);
 
   function sortData() {
     setAscending(!ascending);
     setCocktails(cocktails.slice().reverse());
   }
+
+  const firstLetters = "12345679abcdefghijklmnopqrstvwyz";
+
+  const [showFilters, setShowFilters] = useState(false);
 
   return (
     <Layout>
@@ -51,7 +61,10 @@ export default function CocktailList() {
 
         {/* Sort & Filter */}
         <div className="flex text-2xl mb-12">
-          <button className="w-max mr-auto p-2 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black text-base">
+          <button
+            className="w-max mr-auto p-2 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black text-base"
+            onClick={() => setShowFilters(!showFilters)}
+          >
             <BsSliders />
           </button>
           <button
@@ -69,6 +82,43 @@ export default function CocktailList() {
             <BsSortAlphaDownAlt />
           </button>
         </div>
+
+        {/* Filters */}
+        {showFilters && (
+          <div>
+            <div className="flex items-center justify-between py-4 border-y border-gray-900 my-8">
+              <p className="font-bold">FILTERS</p>
+              <div className="flex items-center">
+                Alcoholic: All
+                <BsChevronDown className="ml-2" />
+              </div>
+              <div className="flex items-center">
+                Glass: All
+                <BsChevronDown className="ml-2" />
+              </div>
+              <div className="flex items-center">
+                First Letter: All
+                <BsChevronDown className="ml-2" />
+              </div>
+              <div>
+                <button className="w-24 py-2 border border-gray-900 hover:border-white mr-4 italic">
+                  Reset
+                </button>
+                <button className="w-24 py-2 bg-shiny-gold hover:brightness-125 border border-shiny-gold text-rich-black font-bold">
+                  Apply
+                </button>
+              </div>
+            </div>
+            <div className="border-b border-gray-900 pb-8">
+              <button className="mx-1 hover:text-shiny-gold">All /</button>
+              {firstLetters.split("").map((c, i) => (
+                <button key={i} className="mx-1 hover:text-shiny-gold">
+                  {c.toUpperCase()} /
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Cocktail Cards */}
         <div

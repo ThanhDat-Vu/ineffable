@@ -9,6 +9,8 @@ import {
   FaPinterestP,
 } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import Dropdown from "./Dropdown";
+import { categories } from "../static/categories";
 
 export default function Layout({ children }) {
   // Check if user scroll
@@ -38,10 +40,21 @@ export default function Layout({ children }) {
         >
           Ineffable
         </Link>
-        <div className="hidden md:block space-x-8">
+        <div className="hidden md:flex space-x-8">
           <NavLink to="/cocktails">Cocktails</NavLink>
           <NavLink to="/ingredients">Ingredients</NavLink>
-          <NavLink to="">Categories</NavLink>
+          <NavLink to="" className="w-24">
+            <Dropdown
+              placeholder="Categories"
+              options={categories}
+              styles={{
+                fieldStyles: "",
+                menuStyle:
+                  "w-max right-0 bg-rich-black/10 backdrop-blur shadow-glass mt-4 text-right",
+                optionStyle: "p-3 hover:bg-white/10",
+              }}
+            />
+          </NavLink>
         </div>
         <div className="md:hidden p-1 text-2xl">
           <AiOutlineMenu />

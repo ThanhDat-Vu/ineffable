@@ -11,7 +11,7 @@ import { SearchBox } from "../components";
 
 export default function Home() {
   // const [keyword, setKeyword] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("Cocktail");
 
   // Get Homepage Data
   const [popularDrinks, setPopularDrinks] = useState(() => {
@@ -70,14 +70,6 @@ export default function Home() {
 
           {/* Search Bar */}
           <form className="mb-20 sm:mb-24 flex flex-col sm:flex-row">
-            {/* <input
-              type="text"
-              name="keyword"
-              placeholder="Which drinks you would like to make?"
-              className="w-80 md:w-96 lg:w-[32rem] bg-white/10 p-3 backdrop-blur shadow-glass sm:mr-2 mb-2 sm:mb-0 focus:outline-0 focus:bg-white/20"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-            ></input> */}
             <SearchBox />
 
             {/* Custom Select */}
@@ -85,11 +77,14 @@ export default function Home() {
               <div className="grow sm:w-40">
                 <Dropdown
                   options={["Cocktail", "Ingredient"]}
-                  selectedOption={selectedOption}
-                  setSelectedOption={setSelectedOption}
-                  className="bg-white/10 p-3 backdrop-blur shadow-glass focus:bg-white/20"
-                  menuClassName="top-10 sm:top-12 bg-white/20 backdrop-blur shadow-glass"
-                  itemClassName="p-3 hover:bg-white/10"
+                  placeholder={selectedOption}
+                  styles={{
+                    fieldStyle:
+                      "bg-white/10 focus:bg-white/20 p-3 backdrop-blur shadow-glass",
+                    menuStyle: "w-full bg-white/20 backdrop-blur shadow-glass",
+                    optionStyle: "p-3 hover:bg-white/10",
+                  }}
+                  onSelect={setSelectedOption}
                 />
               </div>
 

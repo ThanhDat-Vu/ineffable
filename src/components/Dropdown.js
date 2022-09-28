@@ -1,43 +1,54 @@
-import { BsChevronDown } from "react-icons/bs";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useState } from "react";
 import OutsiderAlerter from "./OutsiderAlerter";
 
+/**
+ * @param {Object} props
+ * @param {string} props.placeholder
+ * @param {Array} props.options
+ * @param {{ fieldStyle: string, menuStyle: string, optionStyle: string}} props.styles
+ * @param {function} [props.onClick]
+ * @param {function} [props.onSelect]
+ */
 export default function Dropdown({
+  placeholder,
   options,
-  selectedOption,
-  setSelectedOption,
-  className,
-  menuClassName,
-  itemClassName,
+  styles,
+  onClick,
+  onSelect,
 }) {
+  // Behaviors
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelecting = (opt) => {
-    setSelectedOption(opt);
     setIsOpen(false);
+    if (onClick) onClick();
+    if (onSelect) onSelect(opt);
   };
 
   return (
     <OutsiderAlerter setFalse={setIsOpen} className="w-full">
+      {/* Field */}
       <div
-        className={`w-full cursor-pointer relative ${className}`}
         role="menu"
         tabIndex={0}
+        className={`w-full flex items-center justify-between cursor-pointer box-border ${styles?.fieldStyle}`}
         onClick={() => setIsOpen(!isOpen)}
         onKeyDown={() => setIsOpen(false)}
       >
-        {selectedOption || options[0]}
-        <BsChevronDown className="absolute right-4 top-1/3" />
+        {placeholder}
+        {isOpen ? <BsChevronUp /> : <BsChevronDown />}
+      </div>
+      {/* Menu */}
+      <div className="w-full relative">
         {isOpen && (
-          <div
-            className={`w-full absolute left-0 cursor-pointer ${menuClassName}`}
-          >
-            {options.map((opt) => (
+          <div className={`absolute top-0 ${styles?.menuStyle}`}>
+            {options?.map((opt, i) => (
               <div
-                key={opt}
-                className={`cursor-pointer ${itemClassName}`}
+                key={i}
                 role="menuitem"
                 tabIndex={0}
+                className={`cursor-pointer ${styles?.optionStyle}`}
                 onClick={() => handleSelecting(opt)}
                 onKeyDown={() => setIsOpen(false)}
               >
