@@ -2,7 +2,7 @@ export const categories = [
   "Ordinary Drink",
   "Cocktail",
   "Shake",
-  "Other/Unknown",
+  "Other / Unknown",
   "Cocoa",
   "Shot",
   "Coffee / Tea",

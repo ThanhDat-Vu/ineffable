@@ -9,7 +9,7 @@ import {
   FaPinterestP,
 } from "react-icons/fa";
 import { useEffect, useState } from "react";
-// import { categories } from "../static/categories";
+import { categories } from "../static/categories";
 
 export default function Layout({ children }) {
   // Check if user scroll
@@ -27,26 +27,52 @@ export default function Layout({ children }) {
   return (
     <div className="text-xs sm:text-base">
       {/* Header */}
-      <div
-        className={`sticky top-0 px-4 md:px-8 py-3 -mt-16 flex justify-between items-center z-10 ${
-          isScroll &&
-          "bg-rich-black/10 backdrop-blur shadow-glass transition-all duration-300"
-        }`}
-      >
-        <Link
-          to="/"
-          className="w-20 md:w-24 font-logo text-gold text-3xl md:text-4xl"
-        >
-          Ineffable
-        </Link>
-        <div className="hidden md:flex space-x-8">
-          <NavLink to="/cocktails">Cocktails</NavLink>
-          <NavLink to="/ingredients">Ingredients</NavLink>
-          <NavLink to="">Categories</NavLink>
+      <div className="sticky top-0 z-20">
+        <div className="px-4 md:pl-8 md:pr-4 -mt-16 flex justify-between items-center">
+          <Link
+            to="/"
+            className="w-20 md:w-24 py-3 font-logo text-gold text-3xl md:text-4xl"
+          >
+            Ineffable
+          </Link>
+
+          <div className="hidden md:flex">
+            <NavLink to="/cocktails" className="px-4 py-5 hover:bg-white/10">
+              Cocktails
+            </NavLink>
+            <NavLink to="/ingredients" className="px-4 py-5 hover:bg-white/10">
+              Ingredients
+            </NavLink>
+            <div className="group">
+              <button className="px-4 py-5 group-hover:bg-white/10">
+                Categories
+              </button>
+              <div className="relative hidden group-hover:block">
+                <div className="absolute top-0 right-0 w-max bg-rich-black/10 backdrop-blur shadow-glass">
+                  {categories.map((category, i) => (
+                    <Link
+                      key={i}
+                      to=""
+                      className="block text-right p-4 hover:bg-white/10"
+                    >
+                      {category}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="md:hidden p-1 text-2xl">
+            <AiOutlineMenu />
+          </div>
         </div>
-        <div className="md:hidden p-1 text-2xl">
-          <AiOutlineMenu />
-        </div>
+        <div
+          className={`absolute top-0 -z-10 w-full h-full ${
+            isScroll &&
+            "bg-rich-black/10 backdrop-blur shadow-glass transition-all duration-300"
+          }`}
+        />
       </div>
       {/* Body */}
       <div>{children}</div>
