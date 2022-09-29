@@ -11,7 +11,16 @@ import { SearchBox } from "../components";
 
 export default function Home() {
   // const [keyword, setKeyword] = useState("");
-  const [selectedOption, setSelectedOption] = useState("Cocktail");
+  const menu = [
+    {
+      label: "Cocktail",
+      selected: true,
+    },
+    {
+      label: "Ingredient",
+      selected: false,
+    },
+  ];
 
   // Get Homepage Data
   const [popularDrinks, setPopularDrinks] = useState(() => {
@@ -76,15 +85,14 @@ export default function Home() {
             <div className="flex space-x-2">
               <div className="grow sm:w-40">
                 <Dropdown
-                  options={["Cocktail", "Ingredient"]}
-                  placeholder={selectedOption}
+                  menu={menu}
+                  initialIndex={0}
                   styles={{
                     fieldStyle:
                       "bg-white/10 focus:bg-white/20 p-3 backdrop-blur shadow-glass",
-                    menuStyle: "w-full bg-white/20 backdrop-blur shadow-glass",
+                    menuStyle: "w-full bg-white/10 backdrop-blur shadow-glass",
                     optionStyle: "p-3 hover:bg-white/10",
                   }}
-                  onSelect={setSelectedOption}
                 />
               </div>
 

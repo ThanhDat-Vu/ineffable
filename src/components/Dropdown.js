@@ -1,22 +1,62 @@
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import OutsiderAlerter from "./OutsiderAlerter";
 
 /**
  * @param {Object} props
- * @param {string} props.placeholder
+ * @param {string} props.selectedOption
  * @param {Array} props.options
  * @param {{ fieldStyle: string, menuStyle: string, optionStyle: string}} props.styles
  * @param {function} [props.onSelect]
  */
-export default function Dropdown({ placeholder, options, styles, onSelect }) {
+export default function Dropdown({ menu, initialIndex, styles }) {
   // Behaviors
   const [isOpen, setIsOpen] = useState(false);
+  const [options, setOptions] = useState(menu);
+  const [index, setIndex] = useState(initialIndex);
+  const optionsRef = useRef([]);
 
-  const handleSelecting = (opt) => {
+  useEffect(() => {
+    optionsRef.current = optionsRef.current.slice(0, options.length);
+  }, [options]);
+
+  useEffect(() => {
+    if (isOpen) {
+      optionsRef.current[index].focus();
+    } else {
+      optionsRef.current[index].blur();
+    }
+  }, [isOpen, index]);
+
+  function handleSelecting(newIndex) {
+    options[index].selected = false;
+    options[newIndex].selected = true;
+    setOptions(options);
+    setIndex(newIndex);
     setIsOpen(false);
-    onSelect(opt);
-  };
+  }
+
+  function handleMenuKeyDown(e) {
+    if (e.key === "Enter") {
+      setIsOpen(!isOpen);
+    }
+    if (e.key == "Escape") {
+      setIsOpen(false);
+    }
+  }
+
+  function handleOptionKeyDown(e) {
+    e.preventDefault();
+    if (e.key == "ArrowUp" && index > 0) {
+      setIndex(index - 1);
+    }
+    if (e.key == "ArrowDown" && index < options.length - 1) {
+      setIndex(index + 1);
+    }
+    if (e.key == "Enter") {
+      setIsOpen(false);
+    }
+  }
 
   return (
     <OutsiderAlerter setFalse={setIsOpen} className="w-full">
@@ -26,29 +66,32 @@ export default function Dropdown({ placeholder, options, styles, onSelect }) {
         tabIndex={0}
         className={`w-full flex items-center justify-between cursor-pointer box-border ${styles?.fieldStyle}`}
         onClick={() => setIsOpen(!isOpen)}
-        onKeyDown={() => setIsOpen(false)}
+        onKeyDown={(e) => handleMenuKeyDown(e)}
       >
-        {placeholder}
+        {options[index].label}
         {isOpen ? <BsChevronUp /> : <BsChevronDown />}
       </div>
       {/* Menu */}
       <div className="w-full relative">
-        {isOpen && (
-          <div className={`absolute top-0 ${styles?.menuStyle}`}>
-            {options?.map((opt, i) => (
-              <div
-                key={i}
-                role="menuitem"
-                tabIndex={0}
-                className={`cursor-pointer ${styles?.optionStyle}`}
-                onClick={() => handleSelecting(opt)}
-                onKeyDown={() => setIsOpen(false)}
-              >
-                {opt}
-              </div>
-            ))}
-          </div>
-        )}
+        <div
+          className={`absolute top-0 ${!isOpen && "hidden"} ${
+            styles?.menuStyle
+          }`}
+        >
+          {options?.map((opt, i) => (
+            <div
+              key={i}
+              ref={(el) => (optionsRef.current[i] = el)}
+              role="menuitem"
+              tabIndex={0}
+              className={`cursor-pointer focus:bg-white/20 ${styles?.optionStyle}`}
+              onClick={() => handleSelecting(i)}
+              onKeyDown={(e) => handleOptionKeyDown(e)}
+            >
+              {opt.label}
+            </div>
+          ))}
+        </div>
       </div>
     </OutsiderAlerter>
   );
