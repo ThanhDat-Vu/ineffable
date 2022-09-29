@@ -9,7 +9,7 @@ import Breadcrumb from "../components/Breadcrumb";
 
 export default function Recipe() {
   const recipe = useLoaderData();
-  // console.log(recipe);
+  console.log(recipe);
   const [ingredients, setIngredients] = useState([]);
   useEffect(() => {
     async function getIngredients() {

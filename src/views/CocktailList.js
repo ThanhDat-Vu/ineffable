@@ -10,13 +10,27 @@ import {
 } from "react-icons/bs";
 import RecipeCard from "../components/RecipeCard";
 import Pagination from "../components/Pagination";
+import { useParams } from "react-router-dom";
 
+/**
+ *
+ * @param {Object} props
+ * @param {string} props.title
+ * @param {function} [props.filter]
+ * @returns
+ */
 export default function CocktailList() {
   const [cocktails, setCocktails] = useState([]);
+  let { category } = useParams();
   useEffect(() => {
-    listAllCocktails().then((res) => setCocktails(res));
-    // console.log(cocktails.map((i) => i.strDrink));
-  }, []);
+    function filterByCategory(cocktailList) {
+      return cocktailList.filter(
+        (cocktail) => cocktail.strCategory === category
+      );
+    }
+    listAllCocktails(filterByCategory).then((res) => setCocktails(res));
+    console.log(cocktails);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Pagination
 
@@ -55,7 +69,8 @@ export default function CocktailList() {
         {/* Title */}
         <div className="w-max mx-auto">
           <h2 className="text-gold text-xl lg:text-2xl font-bold mt-8 mb-4 lg:my-8">
-            All Cocktail {cocktails.length > 0 && `(${cocktails.length})`}
+            {category ? `Category: ${category} ` : "All Cocktails"}{" "}
+            {cocktails.length > 0 && `(${cocktails.length})`}
           </h2>
         </div>
 

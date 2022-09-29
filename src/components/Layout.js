@@ -52,7 +52,7 @@ export default function Layout({ children }) {
                   {categories.map((category, i) => (
                     <Link
                       key={i}
-                      to=""
+                      to={`/categories/${encodeURIComponent(category)}`}
                       className="block text-right p-4 hover:bg-white/10"
                     >
                       {category}
