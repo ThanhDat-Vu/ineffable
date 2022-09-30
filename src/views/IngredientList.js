@@ -1,19 +1,16 @@
 import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { listAllIngredientNames } from "../API/IngredientAPI";
+import { useMemo, useRef, useState } from "react";
 import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
 import IngredientCard from "../components/IngredientCard";
 import Pagination from "../components/Pagination";
+import { useLoaderData } from "react-router-dom";
 
-export default function CocktailList() {
-  const [ingredientNames, setIngredientNames] = useState([]);
-  useEffect(() => {
-    listAllIngredientNames().then((res) => setIngredientNames(res));
-  }, []);
+export default function IngredientList() {
+  const data = useLoaderData();
+  const [ingredientNames, setIngredientNames] = useState(data);
 
   // Pagination
-
   const [currentPage, setCurrentPage] = useState(1);
 
   const PAGE_COUNT = 32;
@@ -76,10 +73,12 @@ export default function CocktailList() {
           ref={ingredientsRef}
         >
           {ingredientNames.length
-            ? currentPageData?.map((ingredient) => (
+            ? currentPageData?.map((ingredient, i) => (
                 <IngredientCard
-                  key={ingredient.strIngredient1}
-                  ingredientName={ingredient.strIngredient1}
+                  key={i}
+                  ingredientName={
+                    ingredient.strIngredient || ingredient.strIngredient1
+                  }
                   className="w-32 sm:w-48 h-32 sm:h-48"
                 />
               ))

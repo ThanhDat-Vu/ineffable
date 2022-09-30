@@ -31,13 +31,12 @@ export async function listCocktailsByFirstLetter(firstLetter) {
   return data.drinks || [];
 }
 
-export async function listAllCocktails(filter) {
+export async function listAllCocktails() {
   let allCocktails = [];
   for (let i of "12345679abcdefghijklmnopqrstvwyz") {
     let cocktails = await listCocktailsByFirstLetter(i);
     allCocktails = [...allCocktails, ...cocktails];
   }
-  if (filter) allCocktails = filter(allCocktails);
   return allCocktails;
 }
 

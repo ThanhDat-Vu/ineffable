@@ -11,18 +11,23 @@ import {
 import RecipeCard from "../components/RecipeCard";
 import Pagination from "../components/Pagination";
 import { useParams } from "react-router-dom";
+import { searchCocktailByName } from "../API/SearchAPI";
 
 export default function CocktailList() {
   const [cocktails, setCocktails] = useState([]);
-  let { category } = useParams();
+  let { category, keyword } = useParams();
   useEffect(() => {
-    function filterByCategory(cocktailList) {
-      return cocktailList.filter(
-        (cocktail) => cocktail.strCategory === category
+    if (keyword) {
+      searchCocktailByName(keyword).then((res) => setCocktails(res));
+    } else {
+      listAllCocktails().then((res) =>
+        setCocktails(
+          category
+            ? res.filter((cocktail) => cocktail.strCategory === category)
+            : res
+        )
       );
     }
-    listAllCocktails(filterByCategory).then((res) => setCocktails(res));
-    console.log(cocktails);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Pagination

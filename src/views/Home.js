@@ -4,13 +4,12 @@ import Dropdown from "../components/Dropdown";
 import { useState, useEffect } from "react";
 import { getPopularCocktails } from "../API/CocktailAPI";
 import { getPopularIngredients } from "../API/IngredientAPI";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
 import IngredientCard from "../components/IngredientCard";
 import { SearchBox } from "../components";
 
 export default function Home() {
-  // const [keyword, setKeyword] = useState("");
   const menu = [
     {
       label: "Cocktail",
@@ -54,10 +53,11 @@ export default function Home() {
   // Search Form Actions
   const [index, setIndex] = useState(0);
 
+  const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
     let keyword = e.target.keyword.value;
-    console.log(keyword);
+    navigate(`/${index == 0 ? "cocktails" : "ingredients"}/search/${keyword}`);
   }
 
   return (
