@@ -12,13 +12,6 @@ import RecipeCard from "../components/RecipeCard";
 import Pagination from "../components/Pagination";
 import { useParams } from "react-router-dom";
 
-/**
- *
- * @param {Object} props
- * @param {string} props.title
- * @param {function} [props.filter]
- * @returns
- */
 export default function CocktailList() {
   const [cocktails, setCocktails] = useState([]);
   let { category } = useParams();

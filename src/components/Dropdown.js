@@ -4,10 +4,9 @@ import OutsiderAlerter from "./OutsiderAlerter";
 
 /**
  * @param {Object} props
- * @param {string} props.selectedOption
- * @param {Array} props.options
+ * @param {{label: string, selected: boolean}[]} props.menu
+ * @param {number} props.initialIndex
  * @param {{ fieldStyle: string, menuStyle: string, optionStyle: string}} props.styles
- * @param {function} [props.onSelect]
  */
 export default function Dropdown({ menu, initialIndex, styles }) {
   // Behaviors
