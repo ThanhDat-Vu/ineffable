@@ -51,6 +51,15 @@ export default function Home() {
     setPopularIngredients,
   ]);
 
+  // Search Form Actions
+  const [index, setIndex] = useState(0);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    let keyword = e.target.keyword.value;
+    console.log(keyword);
+  }
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -78,15 +87,19 @@ export default function Home() {
           </p>
 
           {/* Search Bar */}
-          <form className="mb-20 sm:mb-24 flex flex-col sm:flex-row">
-            <SearchBox />
+          <form
+            className="mb-20 sm:mb-24 flex flex-col sm:flex-row"
+            onSubmit={(e) => handleSubmit(e)}
+          >
+            <SearchBox index={index} />
 
             {/* Custom Select */}
             <div className="flex space-x-2">
               <div className="grow sm:w-40">
                 <Dropdown
                   menu={menu}
-                  initialIndex={0}
+                  index={index}
+                  setIndex={setIndex}
                   styles={{
                     fieldStyle:
                       "bg-white/10 focus:bg-white/20 p-3 backdrop-blur shadow-glass",

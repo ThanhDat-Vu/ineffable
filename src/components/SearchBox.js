@@ -1,12 +1,18 @@
-import React from "react";
 import Turnstone from "turnstone";
 import { allCocktailNames } from "../static/allCocktailNames";
+import { allIngredientNames } from "../static/allIngredientName";
 
-export default function SearchBox() {
-  const cocktailNameList = {
-    data: allCocktailNames,
-    searchType: "startsWith",
-  };
+export default function SearchBox({ index }) {
+  const keywordList = [
+    {
+      data: allCocktailNames,
+      searchType: "startsWith",
+    },
+    {
+      data: allIngredientNames,
+      searchType: "startsWith",
+    },
+  ];
 
   const styles = {
     input:
@@ -24,12 +30,18 @@ export default function SearchBox() {
   return (
     <div className='className="w-80 md:w-96 lg:w-[32rem] sm:mr-2 relative z-10'>
       <Turnstone
-        id="search"
-        name="search"
+        id="keyword"
+        name="keyword"
         clearButton={true}
         noItemsMessage="We couldn't find any cocktail that matches your search"
-        placeholder="Which drinks you would like to make?"
-        listbox={cocktailNameList}
+        placeholder={
+          index === 0
+            ? "Which drinks you would like to make?"
+            : "Which ingredient does your drink contain?"
+        }
+        defaultListboxIsImmutable={false}
+        listboxIsImmutable={false}
+        listbox={keywordList[index]}
         maxItems={8}
         matchText={true}
         styles={styles}

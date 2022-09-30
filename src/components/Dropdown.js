@@ -5,14 +5,14 @@ import OutsiderAlerter from "./OutsiderAlerter";
 /**
  * @param {Object} props
  * @param {{label: string, selected: boolean}[]} props.menu
- * @param {number} props.initialIndex
+ * @param {number} props.index
+ * @param {function} props.setIndex
  * @param {{ fieldStyle: string, menuStyle: string, optionStyle: string}} props.styles
  */
-export default function Dropdown({ menu, initialIndex, styles }) {
+export default function Dropdown({ menu, index, setIndex, styles }) {
   // Behaviors
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState(menu);
-  const [index, setIndex] = useState(initialIndex);
   const optionsRef = useRef([]);
 
   useEffect(() => {
