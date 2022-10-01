@@ -97,7 +97,7 @@ export default function Home() {
 
             {/* Custom Select */}
             <div className="flex space-x-2">
-              <div className="grow sm:w-40">
+              <div className="grow w-40">
                 <Dropdown
                   menu={menu}
                   index={index}
@@ -111,7 +111,7 @@ export default function Home() {
                 />
               </div>
 
-              <button className="text-rich-black font-bold bg-shiny-gold px-8 py-3 hover:brightness-125">
+              <button className="w-32 text-rich-black font-bold bg-shiny-gold py-2 hover:brightness-125">
                 Search
               </button>
             </div>

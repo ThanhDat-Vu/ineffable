@@ -16,7 +16,7 @@ export default function SearchBox({ index }) {
 
   const styles = {
     input:
-      "w-full shadow-glass p-3 mb-2 sm:mb-0 focus:outline-0 bg-white/10 focus:bg-white/20 font-normal",
+      "w-full shadow-glass p-3 sm:mb-0 focus:outline-0 bg-white/10 focus:bg-white/20 font-normal",
     listbox: "w-full bg-white/10 backdrop-blur",
     item: "px-4 py-2",
     highlightedItem: "px-6 py-2 bg-white/10 cursor-pointer",
@@ -28,7 +28,7 @@ export default function SearchBox({ index }) {
   };
 
   return (
-    <div className='className="w-80 md:w-96 lg:w-[32rem] sm:mr-2 relative z-10'>
+    <div className="md:w-96 lg:w-[32rem] sm:mr-2 mb-2 sm:mb-0 relative z-10">
       <Turnstone
         id="keyword"
         name="keyword"
@@ -46,7 +46,7 @@ export default function SearchBox({ index }) {
         matchText={true}
         styles={styles}
       />
-      <div className="absolute top-0 -z-10 w-full h-full backdrop-blur" />
+      <div className="absolute top-0 left-0 -z-10 w-full h-full backdrop-blur" />
     </div>
   );
 }
