@@ -1,15 +1,17 @@
-import Layout from "../components/Layout";
-import { Link, useLoaderData } from "react-router-dom";
-import RecipeCard from "../components/RecipeCard";
 import { useEffect, useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 import { getIngredientByName } from "../API/IngredientAPI";
-import IngredientCard from "../components/IngredientCard";
-import Carousel from "../components/Carousel";
-import Breadcrumb from "../components/Breadcrumb";
+import {
+  Layout,
+  Breadcrumb,
+  CocktailCard,
+  IngredientCard,
+  Carousel,
+} from "../components";
 
 export default function Recipe() {
   const recipe = useLoaderData();
-  console.log(recipe);
+
   const [ingredients, setIngredients] = useState([]);
   useEffect(() => {
     async function getIngredients() {
@@ -43,7 +45,7 @@ export default function Recipe() {
           {/* Drink Image */}
           {/* Special Layout: Top-Right to Top */}
           <div className="image first-letter:w-max mx-auto lg:absolute top-8 right-0">
-            <RecipeCard
+            <CocktailCard
               recipe={recipe}
               withCaption={false}
               className="w-56 h-56 lg:w-64 lg:h-64"

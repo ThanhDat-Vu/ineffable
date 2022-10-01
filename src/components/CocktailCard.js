@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 
-export default function RecipeCard({ recipe, className, withCaption = true }) {
+export default function CocktailCard({
+  recipe,
+  className,
+  withCaption = true,
+}) {
   return recipe ? (
     <Link
-      to={`/drinks/${recipe.idDrink}`}
+      to={`/cocktails/${recipe.idDrink}`}
       className={`block border sm:border-2 border-golden space-y-2 text-center ${className}`}
     >
       <img

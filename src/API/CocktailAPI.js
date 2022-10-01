@@ -1,10 +1,9 @@
-export async function getCocktailByID(id) {
+export async function searchCocktailByName(name) {
   const res = await fetch(
-    `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
   );
   const data = await res.json();
-  // console.log(data.drinks);
-  return data.drinks ? data.drinks[0] : {};
+  return data.drinks;
 }
 
 export async function getRandomCocktail() {
@@ -12,15 +11,24 @@ export async function getRandomCocktail() {
     `https://www.thecocktaildb.com/api/json/v1/1/random.php`
   );
   const data = await res.json();
-  // console.log(data.drinks);
   return data.drinks ? data.drinks[0] : {};
 }
 
-export async function searchCocktailsByName(name) {
+export async function getCocktailByID(id) {
   const res = await fetch(
-    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
+    `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
   );
-  return await res.json();
+  const data = await res.json();
+  return data.drinks ? data.drinks[0] : {};
+}
+
+export async function getPopularCocktails() {
+  const popularCocktails = [];
+  for (let i = 0; i < 8; i++) {
+    let cocktail = await getCocktailByID(`1100${i}`);
+    popularCocktails.push(cocktail);
+  }
+  return popularCocktails;
 }
 
 export async function listCocktailsByFirstLetter(firstLetter) {
@@ -46,13 +54,4 @@ export async function listCocktailsByIngredient(ingredient) {
   );
   const data = await res.json();
   return data.drinks || [];
-}
-
-export async function getPopularCocktails() {
-  const popularCocktails = [];
-  for (let i = 0; i < 8; i++) {
-    let cocktail = await getCocktailByID(`1100${i}`);
-    popularCocktails.push(cocktail);
-  }
-  return popularCocktails;
 }

@@ -1,17 +1,13 @@
-import Layout from "../components/Layout";
-import Breadcrumb from "../components/Breadcrumb";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { listAllCocktails } from "../API/CocktailAPI";
+import { useParams } from "react-router-dom";
+import { listAllCocktails, searchCocktailByName } from "../API/CocktailAPI";
+import { Layout, Breadcrumb, CocktailCard, Pagination } from "../components";
 import {
   BsChevronDown,
   BsSliders,
   BsSortAlphaDown,
   BsSortAlphaDownAlt,
 } from "react-icons/bs";
-import RecipeCard from "../components/RecipeCard";
-import Pagination from "../components/Pagination";
-import { useParams } from "react-router-dom";
-import { searchCocktailByName } from "../API/SearchAPI";
 
 export default function CocktailList() {
   const [cocktails, setCocktails] = useState([]);
@@ -140,14 +136,14 @@ export default function CocktailList() {
         >
           {cocktails.length
             ? currentPageData?.map((recipe) => (
-                <RecipeCard
+                <CocktailCard
                   key={recipe.idDrink}
                   recipe={recipe}
                   className="w-32 sm:w-48 h-32 sm:h-48"
                 />
               ))
             : skeletons?.map((i) => (
-                <RecipeCard
+                <CocktailCard
                   key={i}
                   recipe={null}
                   className="w-32 sm:w-48 h-32 sm:h-48"

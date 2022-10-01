@@ -1,10 +1,7 @@
-import Layout from "../components/Layout";
-import Breadcrumb from "../components/Breadcrumb";
 import { useMemo, useRef, useState } from "react";
-import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
-import IngredientCard from "../components/IngredientCard";
-import Pagination from "../components/Pagination";
 import { useLoaderData } from "react-router-dom";
+import { Layout, Breadcrumb, IngredientCard, Pagination } from "../components";
+import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
 
 export default function IngredientList() {
   const data = useLoaderData();

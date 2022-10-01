@@ -2,10 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { listCocktailsByIngredient } from "../API/CocktailAPI";
 import { getIngredientImageUrl } from "../API/IngredientAPI";
-import Breadcrumb from "../components/Breadcrumb";
-import Layout from "../components/Layout";
-import Pagination from "../components/Pagination";
-import RecipeCard from "../components/RecipeCard";
+import { Layout, Breadcrumb, CocktailCard, Pagination } from "../components";
 
 export default function Ingredient() {
   const ingredient = useLoaderData();
@@ -99,7 +96,7 @@ export default function Ingredient() {
           <h3 className="w-64 text-sm lg:text-lg font-bold mb-8">Drinks</h3>
           <div className="w-max mx-auto grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-24 gap-y-12 sm:gap-y-20">
             {currentPageData?.map((recipe) => (
-              <RecipeCard
+              <CocktailCard
                 key={recipe.idDrink}
                 recipe={recipe}
                 className="w-32 sm:w-48 h-32 sm:h-48"

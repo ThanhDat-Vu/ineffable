@@ -1,13 +1,15 @@
-import Layout from "../components/Layout";
-import { BsArrowDown } from "react-icons/bs";
-import Dropdown from "../components/Dropdown";
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { getPopularCocktails } from "../API/CocktailAPI";
 import { getPopularIngredients } from "../API/IngredientAPI";
-import { Link, useNavigate } from "react-router-dom";
-import RecipeCard from "../components/RecipeCard";
-import IngredientCard from "../components/IngredientCard";
-import { SearchBox } from "../components";
+import {
+  Layout,
+  SearchBox,
+  Dropdown,
+  CocktailCard,
+  IngredientCard,
+} from "../components";
+import { BsArrowDown } from "react-icons/bs";
 
 export default function Home() {
   const menu = [
@@ -138,7 +140,7 @@ export default function Home() {
         </h2>
         <div className="w-max grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-32 gap-y-12 sm:gap-y-20 xl:gap-y-24">
           {popularDrinks?.map((recipe) => (
-            <RecipeCard
+            <CocktailCard
               key={recipe.idDrink}
               recipe={recipe}
               className="w-32 sm:w-48 h-32 sm:h-48"
