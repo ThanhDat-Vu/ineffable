@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { listAllCocktails, searchCocktailByName } from "../API/CocktailAPI";
 import { Layout, Breadcrumb, CocktailCard, Pagination } from "../components";
 import {
   BsChevronDown,
@@ -10,25 +8,14 @@ import {
 } from "react-icons/bs";
 import { usePagination } from "../components/Pagination";
 
-export default function CocktailList() {
+export default function CocktailList({ pathLabel, title, dataLoader }) {
   const [cocktails, setCocktails] = useState([]);
-  let { category, keyword } = useParams();
+
   useEffect(() => {
-    if (keyword) {
-      searchCocktailByName(keyword).then((res) => setCocktails(res));
-    } else {
-      listAllCocktails().then((res) =>
-        setCocktails(
-          category
-            ? res.filter((cocktail) => cocktail.strCategory === category)
-            : res
-        )
-      );
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    dataLoader().then((res) => setCocktails(res));
+  }, []); // eslint-disable-line
 
   // Pagination
-
   const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =
     usePagination({
       data: cocktails,
@@ -36,11 +23,9 @@ export default function CocktailList() {
     });
 
   // Skeleton
-
   const skeletons = [...Array(32).keys()];
 
   // Filters & Sort
-
   const [ascending, setAscending] = useState(true);
 
   function sortData() {
@@ -55,13 +40,13 @@ export default function CocktailList() {
   return (
     <Layout>
       <div className="w-full xl:w-max xl:mx-auto px-8 xl:px-0 my-24 lg:my-32">
-        <Breadcrumb pathLabel={`Home / Cocktails`} />
+        <Breadcrumb pathLabel={pathLabel} />
 
         {/* Title */}
         <div className="w-max mx-auto">
           <h2 className="text-gold text-xl lg:text-2xl font-bold mt-8 mb-4 lg:my-8">
-            {category ? `Category: ${category} ` : "All Cocktails"}{" "}
-            {cocktails.length > 0 && `(${cocktails.length})`}
+            {/* {category ? `Category: ${category} ` : "All Cocktails"}{" "} */}
+            {title} {cocktails.length > 0 && `(${cocktails.length})`}
           </h2>
         </div>
 

@@ -3,10 +3,16 @@ import {
   Home,
   Recipe,
   Ingredient,
-  CocktailList,
   IngredientList,
+  CocktailList,
+  CocktailSearch,
+  Category,
 } from "../views";
-import { getCocktailByID, getRandomCocktail } from "../API/CocktailAPI";
+import {
+  getCocktailByID,
+  getRandomCocktail,
+  listAllCocktails,
+} from "../API/CocktailAPI";
 import {
   getIngredientByName,
   listAllIngredientNames,
@@ -30,10 +36,6 @@ const router = createBrowserRouter([
   },
   // Cocktail
   {
-    path: "cocktails",
-    element: <CocktailList />,
-  },
-  {
     path: "cocktails/random",
     loader: async () => await getRandomCocktail(),
     element: <Recipe />,
@@ -44,13 +46,36 @@ const router = createBrowserRouter([
     element: <Recipe />,
   },
   {
-    path: "cocktails/search/:keyword",
-    element: <CocktailList />,
+    path: "cocktails",
+    element: (
+      <CocktailList
+        pathLabel="Home / Cocktails"
+        title="All Cocktails"
+        dataLoader={listAllCocktails}
+      />
+    ),
   },
   {
-    path: "categories/:category",
-    element: <CocktailList />,
+    path: "cocktails/search",
+    element: <CocktailSearch />,
+    children: [
+      {
+        path: ":keyword",
+        element: <CocktailSearch />,
+      },
+    ],
   },
+  {
+    path: "categories",
+    element: <Category />,
+    children: [
+      {
+        path: ":category",
+        // element: <Category />,
+      },
+    ],
+  },
+
   // Ingredient
   {
     path: "ingredients",
@@ -65,10 +90,15 @@ const router = createBrowserRouter([
     element: <Ingredient />,
   },
   {
+    path: "ingredients/search",
+    element: <IngredientList />,
+    loader: async () => await listAllIngredientNames(),
+  },
+  {
     path: "ingredients/search/:keyword",
-    element: <Ingredient />,
+    element: <IngredientList title="Ingredient Search" />,
     loader: async ({ params }) => {
-      return await getIngredientByName(params.keyword);
+      return [await getIngredientByName(params.keyword || "")];
     },
   },
 ]);

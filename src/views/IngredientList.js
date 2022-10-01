@@ -4,7 +4,7 @@ import { Layout, Breadcrumb, IngredientCard, Pagination } from "../components";
 import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
 import { usePagination } from "../components/Pagination";
 
-export default function IngredientList() {
+export default function IngredientList({ title = "All Ingredients" }) {
   const data = useLoaderData();
   const [ingredientNames, setIngredientNames] = useState(data);
 
@@ -34,7 +34,7 @@ export default function IngredientList() {
         {/* Title */}
         <div className="w-max mx-auto">
           <h2 className="text-gold text-xl lg:text-2xl font-bold mt-8 mb-4 lg:my-8">
-            All Ingredients{" "}
+            {title}{" "}
             {ingredientNames.length > 0 && `(${ingredientNames.length})`}
           </h2>
         </div>
