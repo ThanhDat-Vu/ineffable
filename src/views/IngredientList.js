@@ -1,25 +1,21 @@
-import { useMemo, useRef, useState } from "react";
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Layout, Breadcrumb, IngredientCard, Pagination } from "../components";
 import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
+import { usePagination } from "../components/Pagination";
 
 export default function IngredientList() {
   const data = useLoaderData();
   const [ingredientNames, setIngredientNames] = useState(data);
 
   // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
+  const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =
+    usePagination({
+      data: ingredientNames,
+      pageCount: 32,
+    });
 
-  const PAGE_COUNT = 32;
-
-  const currentPageData = useMemo(() => {
-    const firstIndex = (currentPage - 1) * PAGE_COUNT;
-    const lastIndex = firstIndex + PAGE_COUNT;
-    return ingredientNames.slice(firstIndex, lastIndex);
-  }, [ingredientNames, currentPage]);
-
-  const ingredientsRef = useRef();
-
+  // Skeleton
   const skeletons = [...Array(32).keys()];
 
   // Filters & Sort
@@ -67,7 +63,7 @@ export default function IngredientList() {
         {/* Ingredient Cards */}
         <div
           className="w-max mx-auto mt-4 mb-16 grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-24 gap-y-12 sm:gap-y-20 xl:gap-y-24"
-          ref={ingredientsRef}
+          ref={scrollToRef}
         >
           {ingredientNames.length
             ? currentPageData?.map((ingredient, i) => (
@@ -86,12 +82,11 @@ export default function IngredientList() {
 
         {/* Pagination */}
         <Pagination
-          totalCount={ingredientNames.length}
-          pageCount={PAGE_COUNT}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          maxPage={maxPage}
           onPageChange={() =>
-            window.scrollTo(0, ingredientsRef.current.offsetTop - 80)
+            window.scrollTo(0, scrollToRef.current.offsetTop - 80)
           }
         />
       </div>

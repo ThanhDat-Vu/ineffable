@@ -12,15 +12,14 @@ import {
   listAllIngredientNames,
 } from "../API/IngredientAPI";
 
-// TODO: change "drink" to "cocktail" to preserve consistency
 async function cocktailLoader({ params }) {
   let recipe = await getCocktailByID(params.id);
-  let prevDrink = await getCocktailByID(parseInt(params.id, 10) - 1);
-  let nextDrink = await getCocktailByID(parseInt(params.id, 10) + 1);
+  let prevCocktail = await getCocktailByID(parseInt(params.id, 10) - 1);
+  let nextCocktail = await getCocktailByID(parseInt(params.id, 10) + 1);
   return {
     ...recipe,
-    strPrevDrink: prevDrink.strDrink,
-    strNextDrink: nextDrink.strDrink,
+    prevCocktail: prevCocktail.strDrink,
+    nextCocktail: nextCocktail.strDrink,
   };
 }
 
@@ -67,7 +66,7 @@ const router = createBrowserRouter([
   },
   {
     path: "ingredients/search/:keyword",
-    element: <IngredientList />,
+    element: <Ingredient />,
     loader: async ({ params }) => {
       return await getIngredientByName(params.keyword);
     },

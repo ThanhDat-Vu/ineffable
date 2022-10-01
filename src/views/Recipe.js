@@ -108,20 +108,20 @@ export default function Recipe() {
 
         {/* MidNav */}
         <div className="flex">
-          {recipe.strPrevDrink && (
+          {recipe.prevCocktail && (
             <Link
-              to={`/drinks/${parseInt(recipe.idDrink, 10) - 1}`}
+              to={`/cocktails/${parseInt(recipe.idDrink, 10) - 1}`}
               className="italic"
             >
-              {"<< " + recipe.strPrevDrink}
+              {"<< " + recipe.prevCocktail}
             </Link>
           )}
-          {recipe.strNextDrink && (
+          {recipe.nextCocktail && (
             <Link
-              to={`/drinks/${parseInt(recipe.idDrink, 10) + 1}`}
+              to={`/cocktails/${parseInt(recipe.idDrink, 10) + 1}`}
               className="block w-max ml-auto text-right italic"
             >
-              {recipe.strNextDrink + " >>"}
+              {recipe.nextCocktail + " >>"}
             </Link>
           )}
         </div>

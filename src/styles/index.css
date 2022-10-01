@@ -54,15 +54,3 @@ input[type="number"] {
     )
     1;
 }
-
-.golden-bar {
-  border-top: 2px solid;
-  border-image: linear-gradient(
-      90deg,
-      #ae8625 0%,
-      #f7ef8a 32%,
-      #d2ac47 64%,
-      #edc967 100%
-    )
-    1;
-}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useRef } from "react";
 import {
   AiOutlineVerticalRight,
   AiOutlineLeft,
@@ -6,17 +6,30 @@ import {
   AiOutlineVerticalLeft,
 } from "react-icons/ai";
 
+export function usePagination({ data, pageCount }) {
+  const maxPage = Math.ceil(data.length / pageCount);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const currentPageData = useMemo(() => {
+    const firstIndex = (currentPage - 1) * pageCount;
+    const lastIndex = firstIndex + pageCount;
+    return data.slice(firstIndex, lastIndex);
+  }, [data, currentPage, pageCount]);
+
+  const scrollToRef = useRef();
+
+  return { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef };
+}
+
 export default function Pagination({
-  totalCount,
-  pageCount,
+  maxPage,
   currentPage,
   setCurrentPage,
   onPageChange,
 }) {
-  const maxPage = Math.ceil(totalCount / pageCount);
-
   function changePage(index) {
-    onPageChange();
+    if (onPageChange) onPageChange();
     setCurrentPage(index);
     setPageInput(index);
   }

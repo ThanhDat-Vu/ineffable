@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { listAllCocktails, searchCocktailByName } from "../API/CocktailAPI";
 import { Layout, Breadcrumb, CocktailCard, Pagination } from "../components";
@@ -8,6 +8,7 @@ import {
   BsSortAlphaDown,
   BsSortAlphaDownAlt,
 } from "react-icons/bs";
+import { usePagination } from "../components/Pagination";
 
 export default function CocktailList() {
   const [cocktails, setCocktails] = useState([]);
@@ -28,17 +29,13 @@ export default function CocktailList() {
 
   // Pagination
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =
+    usePagination({
+      data: cocktails,
+      pageCount: 32,
+    });
 
-  const PAGE_COUNT = 32;
-
-  const currentPageData = useMemo(() => {
-    const firstIndex = (currentPage - 1) * PAGE_COUNT;
-    const lastIndex = firstIndex + PAGE_COUNT;
-    return cocktails.slice(firstIndex, lastIndex);
-  }, [cocktails, currentPage]);
-
-  const cocktailsRef = useRef();
+  // Skeleton
 
   const skeletons = [...Array(32).keys()];
 
@@ -132,7 +129,7 @@ export default function CocktailList() {
         {/* Cocktail Cards */}
         <div
           className="w-max mx-auto mt-4 mb-16 grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-24 gap-y-12 sm:gap-y-20 xl:gap-y-24"
-          ref={cocktailsRef}
+          ref={scrollToRef}
         >
           {cocktails.length
             ? currentPageData?.map((recipe) => (
@@ -153,12 +150,11 @@ export default function CocktailList() {
 
         {/* Pagination */}
         <Pagination
-          totalCount={cocktails.length}
-          pageCount={PAGE_COUNT}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          maxPage={maxPage}
           onPageChange={() =>
-            window.scrollTo(0, cocktailsRef.current.offsetTop - 80)
+            window.scrollTo(0, scrollToRef.current.offsetTop - 80)
           }
         />
       </div>
