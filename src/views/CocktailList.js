@@ -55,7 +55,7 @@ export default function CocktailList() {
   return (
     <Layout>
       <div className="w-full xl:w-max xl:mx-auto px-8 xl:px-0 my-24 lg:my-32">
-        <Breadcrumb intermediate="Cocktails" current="All" />
+        <Breadcrumb pathLabel={`Home / Cocktails`} />
 
         {/* Title */}
         <div className="w-max mx-auto">

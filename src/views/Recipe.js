@@ -32,7 +32,8 @@ export default function Recipe() {
   return (
     <Layout>
       <div className="w-full xl:w-max xl:mx-auto px-8 xl:px-0 my-24 lg:my-32">
-        <Breadcrumb intermediate="Cocktails" current={recipe.strDrink} />
+        {/* <Breadcrumb intermediate="Cocktails" current={recipe.strDrink} /> */}
+        <Breadcrumb pathLabel={`Home / Cocktails / ${recipe.strDrink}`} />
         {/* Special Layout */}
         <div className="relative">
           {/* Title */}
