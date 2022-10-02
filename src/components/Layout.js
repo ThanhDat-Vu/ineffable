@@ -222,14 +222,21 @@ export default function Layout({ children }) {
         <div className="text-center">
           <h3 className="font-bold mb-4">JOIN OUR EXCLUSIVE GROUP</h3>
           <p>We are cocktail lover, would you like to join us?</p>
-          <form className="flex items-center text-rich-black bg-white w-80 sm:w-96 mx-auto mt-8">
+          <form
+            className="flex items-center text-rich-black bg-white w-80 sm:w-96 mx-auto mt-8"
+            action="https://formsubmit.co/62c317b2c96fa4bc52f653d1e0feb8c9"
+            method="POST"
+          >
             <input
               type="email"
+              name="email"
               placeholder="Enter your email here!"
               className="grow p-3 outline-0"
+              required
             />
             <button className="p-3">
               <AiOutlineRight />
+              {/* <p className="absolute left-4 text-red-800">Send!</p> */}
             </button>
           </form>
         </div>
@@ -269,6 +276,7 @@ export default function Layout({ children }) {
           </div>
         </div>
       </div>
+
       <ScrollRestoration />
     </div>
   );
