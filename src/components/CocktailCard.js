@@ -8,7 +8,7 @@ export default function CocktailCard({
   return recipe ? (
     <Link
       to={`/cocktails/${recipe.idDrink}`}
-      className={`block border sm:border-2 border-golden space-y-2 text-center ${className}`}
+      className={`block border sm:border-2 border-golden space-y-2 mb-10 text-center ${className}`}
     >
       <img
         src={recipe.strDrinkThumb}
