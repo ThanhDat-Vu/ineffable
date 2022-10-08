@@ -34,17 +34,6 @@ export default function Breadcrumb({ pathLabel }) {
           {node.label}
         </NavLink>
       ))}
-      {/* <Link to="/" className="hover:text-white">
-        Home
-      </Link>
-      /
-      <Link to={`/${intermediate.toLowerCase()}`} className="hover:text-white">
-        {intermediate}
-      </Link>
-      /
-      <Link to="." className="text-white">
-        {current}
-      </Link> */}
     </div>
   );
 }
