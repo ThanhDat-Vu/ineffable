@@ -1,9 +1,9 @@
-// https://reactrouter.com/en/main/components/nav-link
+import { useEffect, useState } from "react";
 import {
-  Link,
-  NavLink,
-  ScrollRestoration,
   useNavigate,
+  NavLink,
+  Link,
+  ScrollRestoration,
 } from "react-router-dom";
 import { AiOutlineRight, AiOutlineLeft, AiOutlineSearch } from "react-icons/ai";
 import {
@@ -13,28 +13,28 @@ import {
   FaInstagram,
   FaPinterestP,
 } from "react-icons/fa";
-import { useEffect, useState } from "react";
 import { categories } from "../static/categories";
 import { BsList, BsX } from "react-icons/bs";
 
 export default function Layout({ children }) {
-  // Check if user scroll
-  const [isScroll, setIsScroll] = useState(false);
+  // Check if user has scrolled
+  const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
     function handleScroll() {
-      setIsScroll(window.pageYOffset !== 0);
+      setIsScrolled(window.pageYOffset !== 0);
     }
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isScroll]);
+  }, []);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
 
+  // Search
   const navigate = useNavigate();
-  function handleSubmit(e) {
+  function handleSearch(e) {
     e.preventDefault();
     let keyword = e.target.keyword.value;
     navigate(`/cocktails/search/${keyword}`);
@@ -47,7 +47,7 @@ export default function Layout({ children }) {
         <div className="px-4 md:pl-8 md:pr-4 -mt-16 flex justify-between items-center">
           <Link
             to="/"
-            className="w-20 md:w-24 py-3 font-logo text-gold text-3xl md:text-4xl z-10"
+            className="w-20 md:w-24 py-4 md:py-3 font-logo text-gold text-3xl md:text-4xl leading-8 md:leading-10 z-10"
           >
             Ineffable
           </Link>
@@ -89,118 +89,123 @@ export default function Layout({ children }) {
 
           {/* Overlay Menu */}
           {isMenuOpen && (
-            <div className="absolute top-0 right-0 w-screen h-max min-h-screen bg-rich-black">
-              <div className="flex px-2 py-3 mb-6">
+            <div className="absolute top-0 right-0 w-screen h-max min-h-screen bg-rich-black overflow-hidden">
+              <div className="flex px-4 py-4">
                 <button
                   className="ml-auto p-1 text-2xl"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    setIsSubMenuOpen(false);
+                    setIsMenuOpen(false);
+                  }}
                 >
                   <BsX />
                 </button>
               </div>
 
-              <div className="px-8 space-y-4">
-                <form
-                  className="flex items-center text-rich-black bg-white"
-                  onSubmit={handleSubmit}
-                >
-                  <input
-                    id="keyword"
-                    type="text"
-                    placeholder="Search cocktail recipe..."
-                    className="grow p-3 outline-0"
-                  />
-                  <button className="p-3 text-lg">
-                    <AiOutlineSearch />
-                  </button>
-                </form>
+              <form
+                className="flex items-center mx-8 my-4 text-rich-black bg-white"
+                onSubmit={handleSearch}
+              >
+                <input
+                  id="keyword"
+                  type="text"
+                  placeholder="Cocktail recipe lookup..."
+                  className="grow p-3 outline-0"
+                />
+                <button className="p-3 text-lg">
+                  <AiOutlineSearch />
+                </button>
+              </form>
 
-                {isSubMenuOpen ? (
-                  <>
+              <div
+                className={`w-[200vw] flex relative transition-all duration-300 ease-out ${
+                  isSubMenuOpen ? "right-full" : "right-0"
+                }`}
+              >
+                {/* Menu */}
+                <div className="w-screen px-8 space-y-3">
+                  <div className="space-y-3">
+                    <NavLink to="/cocktails" className="block py-2">
+                      Cocktails
+                    </NavLink>
+                    <NavLink to="/ingredients" className="block py-2">
+                      Ingredients
+                    </NavLink>
                     <button
-                      className="w-full text-left py-2"
-                      onClick={() => setIsSubMenuOpen(false)}
+                      className="w-full flex items-center justify-between py-2"
+                      onClick={() => setIsSubMenuOpen(true)}
                     >
-                      <AiOutlineLeft className="inline text-md mr-2" />
-                      Back
+                      <span>Category</span>
+                      <AiOutlineRight />
                     </button>
+                  </div>
 
-                    <hr className="border-t border-gray-800" />
+                  <hr className="border-t border-gray-800" />
 
-                    <div className="space-y-2">
-                      {categories.map((category, i) => (
-                        <Link
-                          key={i}
-                          to={`/categories/${encodeURIComponent(category)}`}
-                          className="block py-2 hover:bg-white/10"
-                        >
-                          {category}
-                        </Link>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="space-y-3">
-                      <NavLink to="/cocktails" className="block py-2">
-                        Cocktails
-                      </NavLink>
-                      <NavLink to="/ingredients" className="block py-2">
-                        Ingredients
-                      </NavLink>
-                      <button
-                        className="w-full flex items-center justify-between py-2"
-                        onClick={() => setIsSubMenuOpen(true)}
+                  {/* BotNav in Menu */}
+                  <div className="space-y-3">
+                    <Link to="" className="block py-2">
+                      About
+                    </Link>
+                    <Link to="" className="block py-2">
+                      FAQ
+                    </Link>
+                    <Link to="" className="block py-2">
+                      Contact
+                    </Link>
+                  </div>
+
+                  <hr className="border-t border-gray-800" />
+
+                  {/* Social Icons */}
+                  <div className="space-y-3">
+                    <a href="/" className="block py-2">
+                      <FaFacebookF className="inline mr-4" />
+                      Facebook
+                    </a>
+                    <a href="/" className="block py-2">
+                      <FaTiktok className="inline mr-4" />
+                      Tiktok
+                    </a>
+                    <a href="/" className="block py-2">
+                      <FaYoutube className="inline mr-4" />
+                      Youtube
+                    </a>
+                    <a href="/" className="block py-2">
+                      <FaInstagram className="inline mr-4" />
+                      Instagram
+                    </a>
+                    <a href="/" className="block py-2">
+                      <FaPinterestP className="inline mr-4" />
+                      Pinterest
+                    </a>
+                  </div>
+                </div>
+
+                {/* SubMenu */}
+                <div className="w-screen px-8 space-y-3">
+                  <button
+                    className="w-full text-left py-2"
+                    onClick={() => setIsSubMenuOpen(false)}
+                  >
+                    <AiOutlineLeft className="inline text-md mr-2" />
+                    Back
+                  </button>
+
+                  <hr className="border-t border-gray-800" />
+
+                  <div className="space-y-2">
+                    {categories.map((category, i) => (
+                      <Link
+                        key={i}
+                        to={`/categories/${encodeURIComponent(category)}`}
+                        className="block py-2 hover:bg-white/10"
                       >
-                        <span>Category</span>
-                        <AiOutlineRight />
-                      </button>
-                    </div>
-
-                    <hr className="border-t border-gray-800" />
-
-                    {/* BotNav in Menu */}
-                    <div className="space-y-3">
-                      <Link to="" className="block py-2">
-                        About
+                        {category}
                       </Link>
-                      <Link to="" className="block py-2">
-                        FAQ
-                      </Link>
-                      <Link to="" className="block py-2">
-                        Contact
-                      </Link>
-                    </div>
-
-                    <hr className="border-t border-gray-800" />
-
-                    {/* Social Icons */}
-                    <div className="space-y-3">
-                      <a href="/" className="block py-2">
-                        <FaFacebookF className="inline mr-4" />
-                        Facebook
-                      </a>
-                      <a href="/" className="block py-2">
-                        <FaTiktok className="inline mr-4" />
-                        Tiktok
-                      </a>
-                      <a href="/" className="block py-2">
-                        <FaYoutube className="inline mr-4" />
-                        Youtube
-                      </a>
-                      <a href="/" className="block py-2">
-                        <FaInstagram className="inline mr-4" />
-                        Instagram
-                      </a>
-                      <a href="/" className="block py-2">
-                        <FaPinterestP className="inline mr-4" />
-                        Pinterest
-                      </a>
-                    </div>
-                  </>
-                )}
-
-                {/* TopNav in Menu */}
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -209,21 +214,23 @@ export default function Layout({ children }) {
         {/* On Scroll Background */}
         <div
           className={`absolute top-0 -z-10 w-full h-full ${
-            isScroll &&
+            isScrolled &&
             "bg-rich-black/10 backdrop-blur shadow-glass transition-all duration-300"
           }`}
-        />
+        ></div>
       </div>
+
       {/* Body */}
       <div>{children}</div>
+
       {/* Footer */}
-      <div className="space-y-12 mt-16">
-        <hr className="border-t mx-32 md:mx-64 lg:mx-96" />
+      <div className="space-y-16 mt-24 sm:mt-32">
+        <hr className="border-t w-1/2 mx-auto" />
         <div className="text-center">
           <h3 className="font-bold mb-4">JOIN OUR EXCLUSIVE GROUP</h3>
           <p>We are cocktail lover, would you like to join us?</p>
           <form
-            className="flex items-center text-rich-black bg-white w-80 sm:w-96 mx-auto mt-8"
+            className="w-80 sm:w-96 flex items-center mx-auto mt-6 text-rich-black bg-white"
             action="https://formsubmit.co/62c317b2c96fa4bc52f653d1e0feb8c9"
             method="POST"
           >
@@ -236,25 +243,29 @@ export default function Layout({ children }) {
             />
             <button className="p-3">
               <AiOutlineRight />
-              {/* <p className="absolute left-4 text-red-800">Send!</p> */}
             </button>
           </form>
         </div>
         <div className="px-8 pb-16 flex justify-between items-center md:items-start flex-col md:flex-row space-y-4">
           {/* Logo */}
-          <div className="w-24 md:w-36">
-            <Link to="" className="w-24 font-logo text-gold text-4xl">
+          {/* This div helps center the BotNav */}
+          <div className="w-20 md:w-36">
+            <Link
+              to=""
+              className="w-20 md:w-24 font-logo text-gold text-3xl md:text-4xl"
+            >
               Ineffable
             </Link>
           </div>
-          <div className="space-y-2">
+
+          <div>
             {/* BotNav */}
             <div className="flex items-center flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
               <Link to="">About</Link>
               <Link to="">FAQ</Link>
               <Link to="">Contact</Link>
             </div>
-            <div className="text-center">Copyright@2022</div>
+            <div className="text-center mt-4">Copyright@2022</div>
           </div>
           {/* Social Media */}
           <div className="flex space-x-4">

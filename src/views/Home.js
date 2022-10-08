@@ -138,7 +138,7 @@ export default function Home() {
       </div>
 
       {/* Popular Ingredients */}
-      <div className="w-max mx-auto mb-24 sm:mb-32">
+      <div className="w-max mx-auto">
         <h2 className="text-sm sm:text-xl text-gold font-bold mb-6 sm:mb-8">
           Popular Ingredients
         </h2>
