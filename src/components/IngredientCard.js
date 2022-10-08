@@ -15,7 +15,7 @@ export default function IngredientCard({ ingredientName, description }) {
       <p>{description || ingredientName}</p>
     </Link>
   ) : (
-    <div className="animate-pulse w-32 sm:w-48 h-32 sm:h-48 space-y-2">
+    <div className="w-32 sm:w-48 h-32 sm:h-48 space-y-2 animate-pulse">
       <div className="w-full h-full mb-6 bg-gray-900" />
       <div className="w-3/4 mx-auto h-4 bg-gray-900" />
     </div>

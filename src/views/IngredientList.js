@@ -15,9 +15,6 @@ export default function IngredientList({ title = "All Ingredients" }) {
       pageCount: 32,
     });
 
-  // Skeleton
-  const skeletons = [...Array(32).keys()];
-
   // Filters & Sort
   const [ascending, setAscending] = useState(true);
 
@@ -28,31 +25,31 @@ export default function IngredientList({ title = "All Ingredients" }) {
 
   return (
     <Layout>
-      <div className="w-full xl:w-max xl:mx-auto px-8 xl:px-0 my-24 lg:my-32">
+      <div className="w-max mx-auto px-8 xl:px-0 my-24 lg:my-32">
         <Breadcrumb pathLabel={`Home / Ingredients`} />
 
         {/* Title */}
         <div className="w-max mx-auto">
-          <h2 className="text-gold text-xl lg:text-2xl font-bold mt-8 mb-4 lg:my-8">
+          <h2 className="text-gold text-xl lg:text-2xl font-bold my-8">
             {title}{" "}
             {ingredientNames.length > 0 && `(${ingredientNames.length})`}
           </h2>
         </div>
 
         {/* Sort & Filter */}
-        <div className="flex text-2xl mb-12">
+        <div className="flex text-2xl mb-8 xl:mb-12">
           <button className="w-max mr-auto p-2 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black text-base">
             <BsSliders />
           </button>
           <button
-            className="w-max p-1 border border-shiny-gold mr-2 hover:bg-shiny-gold disabled:bg-shiny-gold disabled:text-rich-black"
+            className="p-1 border border-shiny-gold mr-2 hover:bg-shiny-gold disabled:bg-shiny-gold disabled:text-rich-black"
             onClick={sortData}
             disabled={ascending}
           >
             <BsSortAlphaDown />
           </button>
           <button
-            className="w-max p-1 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black disabled:bg-shiny-gold disabled:text-rich-black"
+            className="p-1 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black disabled:bg-shiny-gold disabled:text-rich-black"
             onClick={sortData}
             disabled={!ascending}
           >
@@ -62,7 +59,7 @@ export default function IngredientList({ title = "All Ingredients" }) {
 
         {/* Ingredient Cards */}
         <div
-          className="w-max mx-auto mt-4 mb-16 grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-16 xl:gap-x-24 gap-y-12 sm:gap-y-20 xl:gap-y-24"
+          className="w-max mx-auto mt-4 mb-16 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
           ref={scrollToRef}
         >
           {ingredientNames.length
@@ -75,7 +72,7 @@ export default function IngredientList({ title = "All Ingredients" }) {
                   className="w-32 sm:w-48 h-32 sm:h-48"
                 />
               ))
-            : skeletons?.map((i) => (
+            : [...Array(32).keys()].map((i) => (
                 <IngredientCard key={i} className="w-32 sm:w-48 h-32 sm:h-48" />
               ))}
         </div>
