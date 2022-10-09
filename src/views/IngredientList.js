@@ -30,7 +30,7 @@ export default function IngredientList({ title = "All Ingredients" }) {
 
         {/* Title */}
         <div className="w-max mx-auto">
-          <h2 className="text-gold text-xl lg:text-2xl font-bold my-8">
+          <h2 className="text-gold text-xl sm:text-2xl font-bold my-8">
             {title}{" "}
             {ingredientNames.length > 0 && `(${ingredientNames.length})`}
           </h2>
@@ -59,7 +59,7 @@ export default function IngredientList({ title = "All Ingredients" }) {
 
         {/* Ingredient Cards */}
         <div
-          className="w-max mx-auto mt-4 mb-16 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
+          className="w-max mx-auto mt-4 mb-12 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
           ref={scrollToRef}
         >
           {ingredientNames.length

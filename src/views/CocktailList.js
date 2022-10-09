@@ -41,7 +41,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
 
         {/* Title */}
         <div className="w-max mx-auto">
-          <h2 className="text-gold text-xl lg:text-2xl font-bold my-8">
+          <h2 className="text-gold text-xl sm:text-2xl font-bold my-8">
             {title} {cocktails.length > 0 && `(${cocktails.length})`}
           </h2>
         </div>
@@ -109,7 +109,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
 
         {/* Cocktail Cards */}
         <div
-          className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
+          className="mb-12 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
           ref={scrollToRef}
         >
           {cocktails.length

@@ -1,12 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { listCocktailsByIngredient } from "../API/CocktailAPI";
 import { getIngredientImageUrl } from "../API/IngredientAPI";
 import { Layout, Breadcrumb, CocktailCard, Pagination } from "../components";
+import { usePagination } from "../components/Pagination";
 
 export default function Ingredient() {
   const ingredient = useLoaderData();
 
+  // Drinks loader
   const [drinks, setDrinks] = useState([]);
   useEffect(() => {
     listCocktailsByIngredient(ingredient.strIngredient).then((res) =>
@@ -14,49 +16,49 @@ export default function Ingredient() {
     );
   }, [ingredient]);
 
+  // Description
   const [showLess, setShowLess] = useState(true);
+  const descRef = useRef();
 
-  const [currentPage, setCurrentPage] = useState(1);
-
+  // Pagination
   const PAGE_COUNT = 16;
-
-  const currentPageData = useMemo(() => {
-    const firstIndex = (currentPage - 1) * PAGE_COUNT;
-    const lastIndex = firstIndex + PAGE_COUNT;
-    return drinks.slice(firstIndex, lastIndex);
-  }, [drinks, currentPage]);
-
-  const drinkSection = useRef();
+  const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =
+    usePagination({
+      data: drinks,
+      pageCount: PAGE_COUNT,
+    });
 
   return (
     <Layout>
-      <div className="w-full md:w-max md:mx-auto px-8 xl:px-0 my-24 lg:my-32">
+      <div className="w-max mx-auto px-8 xl:px-0 my-24 lg:my-32">
         <Breadcrumb
           pathLabel={`Home / Ingredients / ${ingredient.strIngredient}`}
         />
 
         {/* Title */}
-        <div className="w-max lg:w-full mx-auto">
-          <h2 className="text-gold text-xl lg:text-2xl font-bold mx-auto lg:ml-64 mt-8 mb-4 lg:my-8">
+        <div className="w-max mx-auto">
+          <h2 className="text-gold text-xl sm:text-2xl font-bold my-8">
             {ingredient.strIngredient}
           </h2>
         </div>
 
         <div className="flex flex-col-reverse lg:flex-row">
-          <div>
+          <div className="space-y-12">
             {/* Type */}
-            <div className="flex flex-col lg:flex-row">
-              <h3 className="w-64 text-sm lg:text-lg font-bold mb-4">Type</h3>
+            <div className="flex flex-col lg:flex-row items-baseline">
+              <h3 className="w-64 text-sm sm:text-lg font-bold mb-4 lg:mb-0">
+                Type
+              </h3>
               <p>{ingredient.strType}</p>
             </div>
 
             {/* Description */}
-            <div className="flex flex-col lg:flex-row my-12">
-              <h3 className="w-64 text-sm lg:text-lg font-bold mb-4">
+            <div className="flex flex-col lg:flex-row items-baseline">
+              <h3 className="w-64 text-sm sm:text-lg font-bold mb-4 lg:mb-0">
                 Description
               </h3>
 
-              <div className="w-full md:w-[32rem]">
+              <div className="w-80 sm:w-[32rem]" ref={descRef}>
                 {ingredient.strDescription ? (
                   <>
                     <p
@@ -68,7 +70,10 @@ export default function Ingredient() {
                     </p>
                     <button
                       className="italic"
-                      onClick={() => setShowLess(!showLess)}
+                      onClick={() => {
+                        window.scrollTo(0, descRef.current.offsetTop - 80);
+                        setShowLess(!showLess);
+                      }}
                     >
                       {showLess ? "...Read more" : "Read less"}
                     </button>
@@ -91,9 +96,11 @@ export default function Ingredient() {
         </div>
 
         {/* Drinks */}
-        <div className="mb-16" ref={drinkSection}>
-          <h3 className="w-64 text-sm lg:text-lg font-bold mb-8">Drinks</h3>
-          <div className="w-max mx-auto grid grid-cols-2 lg:grid-cols-4 gap-x-10 sm:gap-x-24 gap-y-12 sm:gap-y-20">
+        <div className="my-12" ref={scrollToRef}>
+          <h3 className="w-64 text-sm sm:text-lg font-bold mb-4 lg:mb-0">
+            Drinks
+          </h3>
+          <div className="w-max mx-auto mt-8 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16">
             {currentPageData?.map((recipe) => (
               <CocktailCard
                 key={recipe.idDrink}
@@ -106,12 +113,11 @@ export default function Ingredient() {
 
         {/* Pagination */}
         <Pagination
-          totalCount={drinks.length}
-          pageCount={PAGE_COUNT}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          maxPage={maxPage}
           onPageChange={() =>
-            window.scrollTo(0, drinkSection.current.offsetTop - 80)
+            window.scrollTo(0, scrollToRef.current.offsetTop - 80)
           }
         />
       </div>
