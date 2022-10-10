@@ -25,7 +25,7 @@ export default function IngredientList({ title = "All Ingredients" }) {
 
   return (
     <Layout>
-      <div className="w-max mx-auto px-8 xl:px-0 my-24 lg:my-32">
+      <div className="w-max mx-auto my-24 lg:my-32">
         <Breadcrumb pathLabel={`Home / Ingredients`} />
 
         {/* Title */}

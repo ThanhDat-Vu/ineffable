@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { listCocktailsByIngredient } from "../API/CocktailAPI";
 import { getIngredientImageUrl } from "../API/IngredientAPI";
-import { Layout, Breadcrumb, CocktailCard, Pagination } from "../components";
 import { usePagination } from "../components/Pagination";
+import { Layout, Breadcrumb, CocktailCard, Pagination } from "../components";
 
 export default function Ingredient() {
   const ingredient = useLoaderData();
@@ -30,14 +30,14 @@ export default function Ingredient() {
 
   return (
     <Layout>
-      <div className="w-max mx-auto px-8 xl:px-0 my-24 lg:my-32">
+      <div className="w-max mx-auto my-24 lg:my-32">
         <Breadcrumb
           pathLabel={`Home / Ingredients / ${ingredient.strIngredient}`}
         />
 
         {/* Title */}
-        <div className="w-max mx-auto">
-          <h2 className="text-gold text-xl sm:text-2xl font-bold my-8">
+        <div className="w-max mx-auto my-8 lg:ml-64">
+          <h2 className="text-gold text-xl sm:text-2xl font-bold">
             {ingredient.strIngredient}
           </h2>
         </div>
@@ -58,7 +58,10 @@ export default function Ingredient() {
                 Description
               </h3>
 
-              <div className="w-80 sm:w-[32rem]" ref={descRef}>
+              <div
+                className="w-80 sm:w-[28rem] lg:w-96 xl:w-[32rem]"
+                ref={descRef}
+              >
                 {ingredient.strDescription ? (
                   <>
                     <p

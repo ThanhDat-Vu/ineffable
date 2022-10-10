@@ -8,10 +8,13 @@ import {
   IngredientCard,
   Carousel,
 } from "../components";
+import useTitle from "../hooks/useTitle";
 
 export default function Recipe() {
   const recipe = useLoaderData();
 
+  useTitle(recipe.strDrink);
+  // Ingredients Loader
   const [ingredients, setIngredients] = useState([]);
   useEffect(() => {
     async function getIngredients() {
@@ -31,21 +34,20 @@ export default function Recipe() {
 
   return (
     <Layout>
-      <div className="w-full xl:w-max xl:mx-auto px-8 xl:px-0 my-24 lg:my-32">
-        {/* <Breadcrumb intermediate="Cocktails" current={recipe.strDrink} /> */}
+      <div className="w-max mx-auto my-24 lg:my-32">
         <Breadcrumb pathLabel={`Home / Cocktails / ${recipe.strDrink}`} />
         {/* Special Layout */}
         <div className="relative">
           {/* Title */}
-          <div className="w-max lg:w-full mx-auto">
-            <h2 className="text-gold text-xl lg:text-2xl font-bold mx-auto lg:ml-64 mt-8 mb-4 lg:my-8">
+          <div className="w-max mx-auto my-8 lg:ml-64">
+            <h2 className="text-gold text-xl sm:text-2xl font-bold">
               {recipe.strDrink}
             </h2>
           </div>
 
           {/* Drink Image */}
           {/* Special Layout: Top-Right to Top */}
-          <div className="image first-letter:w-max mx-auto lg:absolute top-8 right-0">
+          <div className="w-max mx-auto lg:absolute top-16 right-0">
             <CocktailCard
               recipe={recipe}
               withCaption={false}
@@ -58,8 +60,8 @@ export default function Recipe() {
             {/* Recipe */}
             <div className="lg:mr-64 lg:pr-8">
               {/* Glass */}
-              <div className="flex flex-col lg:flex-row">
-                <h3 className="w-64 text-sm lg:text-lg font-bold mb-4">
+              <div className="flex flex-col lg:flex-row items-baseline">
+                <h3 className="w-64 text-sm sm:text-lg font-bold mb-4 lg:mb-0">
                   Glass
                 </h3>
                 <p>Serve: {recipe.strGlass}</p>
@@ -67,10 +69,10 @@ export default function Recipe() {
 
               {/* Instructions */}
               <div className="flex flex-col lg:flex-row my-12 lg:mt-8 lg:mb-0">
-                <h3 className="w-64 text-sm lg:text-lg font-bold mb-2">
+                <h3 className="w-64 text-sm sm:text-lg font-bold mb-4 lg:mb-0">
                   Instructions
                 </h3>
-                <ol className="w-96 xl:w-[32rem] leading-6 lg:leading-8 space-y-2">
+                <ol className="w-80 sm:w-[28rem] lg:min-h-[12rem] lg:w-96 xl:w-[32rem] leading-6 lg:leading-8 space-y-2">
                   {recipe.strInstructions.match(/[^.]+\./g)?.map((step, i) => (
                     <li key={i}>{`${i + 1}. ${step}`}</li>
                   ))}
@@ -79,13 +81,15 @@ export default function Recipe() {
             </div>
             {/* Special Layout: Bot to Mid */}
             {/* Ingredients */}
-            <div className="mt-12 mb-8">
-              <h3 className="w-64 text-sm lg:text-lg font-bold">Ingredients</h3>
+            <div className="mt-4 mb-8">
+              <h3 className="w-64 text-sm sm:text-lg font-bold mb-4 lg:mb-0">
+                Ingredients
+              </h3>
               {/* Carousel */}
               <Carousel>
-                {ingredients.map((ingredient) => (
+                {ingredients.map((ingredient, i) => (
                   <IngredientCard
-                    key={ingredient.idIngredient}
+                    key={i}
                     ingredientName={ingredient.strIngredient}
                     description={ingredient.description}
                   />
@@ -96,7 +100,9 @@ export default function Recipe() {
 
           {/* Tags */}
           <div className="flex flex-col lg:flex-row mb-12">
-            <h3 className="w-64 text-sm lg:text-lg font-bold mb-4">Tags</h3>
+            <h3 className="w-64 text-sm sm:text-lg font-bold mb-4 lg:mb-0">
+              Tags
+            </h3>
             <p>
               {recipe.strTags?.split(/(?<=,)/).map((tag, i) => (
                 <Link key={i} className="italic">
@@ -112,6 +118,7 @@ export default function Recipe() {
           {recipe.prevCocktail && (
             <Link
               to={`/cocktails/${parseInt(recipe.idDrink, 10) - 1}`}
+              // reloadDocument
               className="italic"
             >
               {"<< " + recipe.prevCocktail}
@@ -120,6 +127,7 @@ export default function Recipe() {
           {recipe.nextCocktail && (
             <Link
               to={`/cocktails/${parseInt(recipe.idDrink, 10) + 1}`}
+              // reloadDocument
               className="block w-max ml-auto text-right italic"
             >
               {recipe.nextCocktail + " >>"}

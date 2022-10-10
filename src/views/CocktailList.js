@@ -36,7 +36,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
 
   return (
     <Layout>
-      <div className="w-max mx-auto px-8 xl:px-0 mt-24 lg:mt-32">
+      <div className="w-max mx-auto my-24 lg:my-32">
         <Breadcrumb pathLabel={pathLabel} />
 
         {/* Title */}
