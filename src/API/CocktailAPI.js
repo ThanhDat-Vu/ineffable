@@ -49,8 +49,11 @@ export async function listAllCocktails() {
 }
 
 export async function listCocktailsByCategory(category) {
-  let cocktails = await listAllCocktails();
-  return cocktails.filter((cocktail) => cocktail.strCategory === category);
+  const res = await fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
+  );
+  const data = await res.json();
+  return data.drinks || [];
 }
 
 export async function listCocktailsByIngredient(ingredient) {

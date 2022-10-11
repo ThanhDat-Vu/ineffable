@@ -13,7 +13,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
 
   useEffect(() => {
     dataLoader().then((res) => setCocktails(res));
-  }, []); // eslint-disable-line
+  }, [dataLoader]);
 
   // Pagination
   const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =

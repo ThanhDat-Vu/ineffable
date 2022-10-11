@@ -66,16 +66,19 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "categories",
-    element: <Category />,
-    children: [
-      {
-        path: ":category",
-        // element: <Category />,
-      },
-    ],
+    path: "categories/",
+    element: (
+      <CocktailList
+        pathLabel="Home / Cocktails"
+        title="All Cocktails"
+        dataLoader={listAllCocktails}
+      />
+    ),
   },
-
+  {
+    path: "categories/:category",
+    element: <Category />,
+  },
   // Ingredient
   {
     path: "ingredients",

@@ -4,12 +4,12 @@ import CocktailList from "./CocktailList";
 
 export default function Category() {
   let { category } = useParams();
-
+  let keyword = category?.replace(" / ", "\\/");
   return (
     <CocktailList
       pathLabel={`Home / Category / ${category}`}
-      title={`Category: ${category || "All"}`}
-      dataLoader={async () => await listCocktailsByCategory(category)}
+      title={`Category: ${category}`}
+      dataLoader={async () => await listCocktailsByCategory(keyword)}
     />
   );
 }
