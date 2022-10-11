@@ -9,7 +9,7 @@ export default function IngredientCard({ ingredientName, description }) {
     >
       <img
         src={getIngredientImageUrl(ingredientName)}
-        alt={description}
+        alt={ingredientName}
         className="w-full mb-4"
       />
       <p>{description || ingredientName}</p>

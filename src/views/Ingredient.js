@@ -29,7 +29,10 @@ export default function Ingredient() {
     });
 
   return (
-    <Layout>
+    <Layout
+      title={ingredient.strIngredient}
+      desc={`${ingredient.strDescription} details`}
+    >
       <div className="w-max mx-auto my-24 lg:my-32">
         <Breadcrumb
           pathLabel={`Home / Ingredients / ${ingredient.strIngredient}`}

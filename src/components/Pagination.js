@@ -77,6 +77,7 @@ export default function Pagination({
       <button
         className={`p-2 ${currentPage <= 1 && "text-gray-800"}`}
         onClick={moveFirst}
+        aria-label="move first"
         // disabled={currentPage <= 1}
       >
         <AiOutlineVerticalRight />
@@ -84,6 +85,7 @@ export default function Pagination({
       <button
         className={`p-2 ${currentPage <= 1 && "text-gray-800"}`}
         onClick={movePrev}
+        aria-label="move previous"
         // disabled={currentPage <= 1}
       >
         <AiOutlineLeft />
@@ -91,6 +93,7 @@ export default function Pagination({
       <div className="h-min w-12 bg-white text-rich-black mx-2">
         <input
           type="number"
+          aria-label="page index"
           value={pageInput}
           onChange={(e) => setPageInput(e.target.value)}
           onBlur={handlePageChange}
@@ -107,6 +110,7 @@ export default function Pagination({
       <button
         className={`p-2 ${currentPage >= maxPage && "text-gray-800"}`}
         onClick={moveNext}
+        aria-label="move next"
         // disabled={currentPage >= maxPage}
       >
         <AiOutlineRight />
@@ -114,6 +118,7 @@ export default function Pagination({
       <button
         className={`p-2 ${currentPage >= maxPage && "text-gray-800"}`}
         onClick={moveLast}
+        aria-label="move last"
         // disabled={currentPage >= maxPage}
       >
         <AiOutlineVerticalLeft />

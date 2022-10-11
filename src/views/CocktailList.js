@@ -35,7 +35,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
   // const [showFilters, setShowFilters] = useState(false);
 
   return (
-    <Layout>
+    <Layout title={title} desc={`Cocktail List - ${title}`}>
       <div className="w-max mx-auto my-24 lg:my-32">
         <Breadcrumb pathLabel={pathLabel} />
 
@@ -50,12 +50,14 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
         <div className="flex text-2xl mb-8 xl:mb-12">
           <button
             className="mr-auto p-2 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black text-base"
+            aria-label="filter"
             // onClick={() => setShowFilters(!showFilters)}
           >
             <BsSliders />
           </button>
           <button
             className="p-1 border border-shiny-gold mr-2 hover:bg-shiny-gold disabled:bg-shiny-gold disabled:text-rich-black"
+            aria-label="sort ascending"
             onClick={sortData}
             disabled={ascending}
           >
@@ -63,6 +65,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
           </button>
           <button
             className="p-1 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black disabled:bg-shiny-gold disabled:text-rich-black"
+            aria-label="sort descending"
             onClick={sortData}
             disabled={!ascending}
           >

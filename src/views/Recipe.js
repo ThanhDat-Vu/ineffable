@@ -8,12 +8,9 @@ import {
   IngredientCard,
   Carousel,
 } from "../components";
-import useTitle from "../hooks/useTitle";
 
 export default function Recipe() {
   const recipe = useLoaderData();
-
-  useTitle(recipe.strDrink);
   // Ingredients Loader
   const [ingredients, setIngredients] = useState([]);
   useEffect(() => {
@@ -33,7 +30,7 @@ export default function Recipe() {
   }, [recipe]);
 
   return (
-    <Layout>
+    <Layout title={recipe.strDrink} desc={`${recipe.strDrink} recipe`}>
       <div className="w-max mx-auto my-24 lg:my-32">
         <Breadcrumb pathLabel={`Home / Cocktails / ${recipe.strDrink}`} />
         {/* Special Layout */}
@@ -103,7 +100,7 @@ export default function Recipe() {
             <h3 className="w-64 text-sm sm:text-lg font-bold mb-4 lg:mb-0">
               Tags
             </h3>
-            <p>
+            <p className="w-80 sm:w-max flex flex-wrap leading-6">
               {recipe.strTags?.split(/(?<=,)/).map((tag, i) => (
                 <Link key={i} className="italic">
                   {tag}&nbsp;

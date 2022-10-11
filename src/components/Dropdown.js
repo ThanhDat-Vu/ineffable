@@ -61,7 +61,10 @@ export default function Dropdown({ menu, index, setIndex, styles }) {
     <OutsiderAlerter setFalse={setIsOpen} className="w-full">
       {/* Field */}
       <div
-        role="menu"
+        role="combobox"
+        aria-label="dropdownBar"
+        aria-controls="dropdown"
+        aria-expanded="false"
         tabIndex={0}
         className={`w-full flex items-center justify-between cursor-pointer box-border ${styles?.fieldStyle}`}
         onClick={() => setIsOpen(!isOpen)}
@@ -71,7 +74,12 @@ export default function Dropdown({ menu, index, setIndex, styles }) {
         {isOpen ? <BsChevronUp /> : <BsChevronDown />}
       </div>
       {/* Menu */}
-      <div className="w-full relative">
+      <div
+        id="dropdown"
+        role="listbox"
+        aria-label="optionList"
+        className="w-full relative"
+      >
         <div
           className={`absolute top-0 ${!isOpen && "hidden"} ${
             styles?.menuStyle
@@ -81,7 +89,8 @@ export default function Dropdown({ menu, index, setIndex, styles }) {
             <div
               key={i}
               ref={(el) => (optionsRef.current[i] = el)}
-              role="menuitem"
+              role="option"
+              aria-selected={i == 0 ? "true" : "false"}
               tabIndex={0}
               className={`cursor-pointer focus:bg-white/20 ${styles?.optionStyle}`}
               onClick={() => handleSelecting(i)}

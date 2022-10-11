@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import {
   useNavigate,
   NavLink,
@@ -16,7 +17,7 @@ import {
 import { categories } from "../static/categories";
 import { BsList, BsX } from "react-icons/bs";
 
-export default function Layout({ children }) {
+export default function Layout({ children, title, desc }) {
   // Check if user has scrolled
   const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
@@ -42,6 +43,10 @@ export default function Layout({ children }) {
 
   return (
     <div className="text-xs sm:text-base">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={desc} />
+      </Helmet>
       {/* Header */}
       <div className="sticky top-0 z-20">
         <div className="px-4 md:pl-8 md:pr-4 -mt-16 flex justify-between items-center">
@@ -83,6 +88,7 @@ export default function Layout({ children }) {
           <button
             className="md:hidden p-1 text-2xl"
             onClick={() => setIsMenuOpen(true)}
+            aria-label="Menu"
           >
             <BsList />
           </button>
@@ -159,23 +165,23 @@ export default function Layout({ children }) {
 
                   {/* Social Icons */}
                   <div className="space-y-3">
-                    <a href="/" className="block py-2">
+                    <a href="https://www.facebook.com/" className="block py-2">
                       <FaFacebookF className="inline mr-4" />
                       Facebook
                     </a>
-                    <a href="/" className="block py-2">
+                    <a href="https://www.tiktok.com/" className="block py-2">
                       <FaTiktok className="inline mr-4" />
                       Tiktok
                     </a>
-                    <a href="/" className="block py-2">
+                    <a href="https://youtube.com/" className="block py-2">
                       <FaYoutube className="inline mr-4" />
                       Youtube
                     </a>
-                    <a href="/" className="block py-2">
+                    <a href="https://www.instagram.com/" className="block py-2">
                       <FaInstagram className="inline mr-4" />
                       Instagram
                     </a>
-                    <a href="/" className="block py-2">
+                    <a href="https://www.pinterest.com/" className="block py-2">
                       <FaPinterestP className="inline mr-4" />
                       Pinterest
                     </a>
@@ -241,7 +247,7 @@ export default function Layout({ children }) {
               className="grow p-3 outline-0"
               required
             />
-            <button className="p-3">
+            <button className="p-3" aria-label="Submit">
               <AiOutlineRight />
             </button>
           </form>
@@ -269,19 +275,19 @@ export default function Layout({ children }) {
           </div>
           {/* Social Media */}
           <div className="flex space-x-4">
-            <a href="/">
+            <a href="https://www.facebook.com/" aria-label="Facebook">
               <FaFacebookF />
             </a>
-            <a href="/">
+            <a href="https://www.tiktok.com/" aria-label="Tiktok">
               <FaTiktok />
             </a>
-            <a href="/">
+            <a href="https://youtube.com/" aria-label="Youtube">
               <FaYoutube />
             </a>
-            <a href="/">
+            <a href="https://www.instagram.com/" aria-label="Instagram">
               <FaInstagram />
             </a>
-            <a href="/">
+            <a href="https://www.pinterest.com/" aria-label="Pinterest">
               <FaPinterestP />
             </a>
           </div>

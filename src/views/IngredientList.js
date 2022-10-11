@@ -24,7 +24,7 @@ export default function IngredientList({ title = "All Ingredients" }) {
   }
 
   return (
-    <Layout>
+    <Layout title="Ingredients" desc="Ingredient list">
       <div className="w-max mx-auto my-24 lg:my-32">
         <Breadcrumb pathLabel={`Home / Ingredients`} />
 
@@ -38,11 +38,15 @@ export default function IngredientList({ title = "All Ingredients" }) {
 
         {/* Sort & Filter */}
         <div className="flex text-2xl mb-8 xl:mb-12">
-          <button className="w-max mr-auto p-2 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black text-base">
+          <button
+            className="w-max mr-auto p-2 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black text-base"
+            aria-label="filter"
+          >
             <BsSliders />
           </button>
           <button
             className="p-1 border border-shiny-gold mr-2 hover:bg-shiny-gold disabled:bg-shiny-gold disabled:text-rich-black"
+            aria-label="sort ascending"
             onClick={sortData}
             disabled={ascending}
           >
@@ -50,6 +54,7 @@ export default function IngredientList({ title = "All Ingredients" }) {
           </button>
           <button
             className="p-1 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black disabled:bg-shiny-gold disabled:text-rich-black"
+            aria-label="sort descending"
             onClick={sortData}
             disabled={!ascending}
           >

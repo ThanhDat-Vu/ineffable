@@ -31,7 +31,10 @@ export default function Home() {
   }
 
   return (
-    <Layout>
+    <Layout
+      title={"Ineffable! - Cocktail Recipes"}
+      desc="Cocktail recipe website - Homepage"
+    >
       {/* Hero Section */}
       <div className="h-screen bg-hero-image bg-[length:auto_100%] sm:bg-cover bg-center bg-fixed relative">
         {/* Overlay */}
