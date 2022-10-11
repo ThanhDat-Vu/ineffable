@@ -33,6 +33,11 @@ export default function Layout({ children, title, desc }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
 
+  function closeMenu() {
+    setIsMenuOpen(false);
+    setIsSubMenuOpen(false);
+  }
+
   // Search
   const navigate = useNavigate();
   function handleSearch(e) {
@@ -97,13 +102,7 @@ export default function Layout({ children, title, desc }) {
           {isMenuOpen && (
             <div className="absolute top-0 right-0 w-screen h-max min-h-screen bg-rich-black overflow-hidden">
               <div className="flex px-4 py-4">
-                <button
-                  className="ml-auto p-1 text-2xl"
-                  onClick={() => {
-                    setIsSubMenuOpen(false);
-                    setIsMenuOpen(false);
-                  }}
-                >
+                <button className="ml-auto p-1 text-2xl" onClick={closeMenu}>
                   <BsX />
                 </button>
               </div>
@@ -206,6 +205,7 @@ export default function Layout({ children, title, desc }) {
                         key={i}
                         to={`/categories/${encodeURIComponent(category)}`}
                         className="block py-2 hover:bg-white/10"
+                        onClick={closeMenu}
                       >
                         {category}
                       </Link>
