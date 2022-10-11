@@ -67,19 +67,19 @@ export default function IngredientList({ title = "All Ingredients" }) {
           className="w-max mx-auto mt-4 mb-12 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
           ref={scrollToRef}
         >
-          {ingredientNames.length
-            ? currentPageData?.map((ingredient, i) => (
-                <IngredientCard
-                  key={i}
-                  ingredientName={
-                    ingredient.strIngredient || ingredient.strIngredient1
-                  }
-                  className="w-32 sm:w-48 h-32 sm:h-48"
-                />
-              ))
-            : [...Array(32).keys()].map((i) => (
-                <IngredientCard key={i} className="w-32 sm:w-48 h-32 sm:h-48" />
-              ))}
+          {ingredientNames.length ? (
+            currentPageData?.map((ingredient, i) => (
+              <IngredientCard
+                key={i}
+                ingredientName={
+                  ingredient.strIngredient || ingredient.strIngredient1
+                }
+                className="w-32 sm:w-48 h-32 sm:h-48"
+              />
+            ))
+          ) : (
+            <p>No ingredient found</p>
+          )}
         </div>
 
         {/* Pagination */}

@@ -3,7 +3,7 @@ export async function searchCocktailByName(name) {
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
   );
   const data = await res.json();
-  return data.drinks;
+  return data.drinks || [];
 }
 
 export async function getRandomCocktail() {

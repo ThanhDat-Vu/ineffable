@@ -10,9 +10,12 @@ import { usePagination } from "../components/Pagination";
 
 export default function CocktailList({ pathLabel, title, dataLoader }) {
   const [cocktails, setCocktails] = useState([]);
-
+  const [isFound, setIsFound] = useState(true);
   useEffect(() => {
-    dataLoader().then((res) => setCocktails(res));
+    dataLoader().then((res) => {
+      setCocktails(res);
+      setIsFound(res.length > 0);
+    });
   }, [dataLoader]);
 
   // Pagination
@@ -42,7 +45,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
         {/* Title */}
         <div className="w-max mx-auto">
           <h2 className="text-gold text-xl sm:text-2xl font-bold my-8">
-            {title} {cocktails.length > 0 && `(${cocktails.length})`}
+            {title} {cocktails?.length > 0 && `(${cocktails?.length})`}
           </h2>
         </div>
 
@@ -115,21 +118,27 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
           className="mb-12 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
           ref={scrollToRef}
         >
-          {cocktails.length
-            ? currentPageData?.map((recipe) => (
+          {isFound ? (
+            cocktails.length ? (
+              currentPageData?.map((recipe) => (
                 <CocktailCard
                   key={recipe.idDrink}
                   recipe={recipe}
                   className="w-32 sm:w-48 h-32 sm:h-48"
                 />
               ))
-            : [...Array(32).keys()]?.map((i) => (
+            ) : (
+              [...Array(32).keys()]?.map((i) => (
                 <CocktailCard
                   key={i}
                   recipe={null}
                   className="w-32 sm:w-48 h-32 sm:h-48"
                 />
-              ))}
+              ))
+            )
+          ) : (
+            <p>No cocktail found!</p>
+          )}
         </div>
 
         {/* Pagination */}

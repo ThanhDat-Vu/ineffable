@@ -30,7 +30,7 @@ export async function getIngredientByName(name) {
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${name}`
   );
   const data = await res.json();
-  return data.ingredients[0];
+  return data.ingredients ? data.ingredients[0] : null;
 }
 
 export function getIngredientImageUrl(name) {

@@ -101,7 +101,8 @@ const router = createBrowserRouter([
     path: "ingredients/search/:keyword",
     element: <IngredientList title="Ingredient Search" />,
     loader: async ({ params }) => {
-      return [await getIngredientByName(params.keyword || "")];
+      let ingredient = await getIngredientByName(params.keyword || "");
+      return ingredient ? [ingredient] : [];
     },
   },
 ]);
