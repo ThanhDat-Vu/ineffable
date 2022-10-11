@@ -57,7 +57,7 @@ export default function Home() {
         {/* Search */}
         <div className="absolute top-[40%] w-full flex flex-col items-center">
           {/* Intro */}
-          <p className="w-[22rem] sm:w-96 md:w-full mb-4 text-center">
+          <p className="leading-5 sm:leading-normal w-[22rem] sm:w-96 md:w-full mb-4 text-center">
             Welcome, stranger! In this place, you can find almost every
             flavorsome cocktail recipe in the world!
           </p>

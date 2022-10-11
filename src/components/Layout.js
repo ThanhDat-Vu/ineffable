@@ -44,6 +44,7 @@ export default function Layout({ children, title, desc }) {
     e.preventDefault();
     let keyword = e.target.keyword.value;
     navigate(`/cocktails/search/${keyword}`);
+    closeMenu();
   }
 
   return (
@@ -57,7 +58,7 @@ export default function Layout({ children, title, desc }) {
         <div className="px-4 md:pl-8 md:pr-4 -mt-16 flex justify-between items-center">
           <Link
             to="/"
-            className="w-20 md:w-24 py-4 md:py-3 font-logo text-gold text-3xl md:text-4xl leading-8 md:leading-10 z-10"
+            className="w-20 md:w-24 py-3 font-logo text-gold text-3xl md:text-4xl leading-8 md:leading-10 z-10"
           >
             Ineffable
           </Link>
@@ -101,7 +102,7 @@ export default function Layout({ children, title, desc }) {
           {/* Overlay Menu */}
           {isMenuOpen && (
             <div className="absolute top-0 right-0 w-screen h-max min-h-screen bg-rich-black overflow-hidden">
-              <div className="flex px-4 py-4">
+              <div className="flex px-4 py-3">
                 <button className="ml-auto p-1 text-2xl" onClick={closeMenu}>
                   <BsX />
                 </button>
