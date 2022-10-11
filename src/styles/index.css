@@ -10,12 +10,20 @@
 
 html {
   scroll-behavior: smooth;
+  height: -webkit-fill-available;
 }
 
 body {
   font-family: "Playfair Display", serif;
   background-color: #010203;
   color: white;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+.h-available {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 /* Remove Arrows/Spinners */

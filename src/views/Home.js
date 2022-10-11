@@ -12,8 +12,11 @@ import {
   IngredientCard,
 } from "../components";
 import { BsArrowDown } from "react-icons/bs";
+import useScreenFix from "../hooks/useScreenFix";
 
 export default function Home() {
+  useScreenFix();
+
   // Get Homepage Data
   const popularCocktails = useSession("popularCocktails", getPopularCocktails);
   const popularIngredients = useSession(
@@ -36,7 +39,7 @@ export default function Home() {
       desc="Cocktail recipe website - Homepage"
     >
       {/* Hero Section */}
-      <div className="h-screen bg-hero-image bg-[length:auto_100%] sm:bg-cover bg-center bg-fixed relative">
+      <div className="h-available bg-hero-image bg-[length:auto_100%] sm:bg-cover bg-center bg-fixed relative">
         {/* Overlay */}
         <div className="w-full h-full bg-rich-black opacity-70"></div>
 
