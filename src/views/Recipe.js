@@ -101,9 +101,9 @@ export default function Recipe() {
               Tags
             </h3>
             <p className="w-80 sm:w-max flex flex-wrap leading-6">
-              {recipe.strTags?.split(/(?<=,)/).map((tag, i) => (
+              {recipe.strTags?.split(",").map((tag, i) => (
                 <Link key={i} className="italic">
-                  {tag}&nbsp;
+                  {tag};&nbsp;
                 </Link>
               ))}
             </p>
