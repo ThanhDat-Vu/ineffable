@@ -4,7 +4,7 @@ import CocktailList from "./CocktailList";
 
 export default function Category() {
   let { category } = useParams();
-  let keyword = category?.replace(" / ", "\\/");
+  let keyword = category?.replace("/", "\\/");
   return (
     <CocktailList
       pathLabel={`Home / Category / ${category}`}
