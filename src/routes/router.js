@@ -8,11 +8,7 @@ import {
   CocktailSearch,
   Category,
 } from "../views";
-import {
-  getCocktailByID,
-  getRandomCocktail,
-  listAllCocktails,
-} from "../API/CocktailAPI";
+import { getCocktailByID, getRandomCocktail } from "../API/CocktailAPI";
 import {
   getIngredientByName,
   listAllIngredientNames,
@@ -48,11 +44,7 @@ const router = createBrowserRouter([
   {
     path: "cocktails",
     element: (
-      <CocktailList
-        pathLabel="Home / Cocktails"
-        title="All Cocktails"
-        dataLoader={listAllCocktails}
-      />
+      <CocktailList pathLabel="Home / Cocktails" title="All Cocktails" />
     ),
   },
   {
@@ -62,11 +54,7 @@ const router = createBrowserRouter([
   {
     path: "categories/",
     element: (
-      <CocktailList
-        pathLabel="Home / Cocktails"
-        title="All Cocktails"
-        dataLoader={listAllCocktails}
-      />
+      <CocktailList pathLabel="Home / Cocktails" title="All Cocktails" />
     ),
   },
   {

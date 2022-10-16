@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { listCocktailsByFirstLetter } from "../API/CocktailAPI";
 import {
   Layout,
   Breadcrumb,
@@ -18,16 +19,28 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
   const tagName = searchParams.get("tag");
 
   useEffect(() => {
-    dataLoader().then((res) => {
-      if (tagName) {
-        setCocktails(
-          res.filter((i) => i.strTags && i.strTags.includes(tagName))
-        );
-      } else {
+    if (dataLoader) {
+      dataLoader().then((res) => {
         setCocktails(res);
+        setIsFound(res.length > 0);
+      });
+    } else {
+      for (let i of "12345679abcdefghijklmnopqrstvwyz") {
+        listCocktailsByFirstLetter(i).then((res) => {
+          if (tagName) {
+            res = res.filter((i) => i.strTags && i.strTags.includes(tagName));
+          }
+          setCocktails((cocktails) => [...cocktails, ...res]);
+          setCocktails((cocktails) =>
+            cocktails.sort((a, b) =>
+              a.strDrink.localeCompare(b.strDrink, "en", {
+                sensitivity: "base",
+              })
+            )
+          );
+        });
       }
-      setIsFound(res.length > 0);
-    });
+    }
   }, [dataLoader, tagName]);
 
   // Pagination

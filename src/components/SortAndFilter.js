@@ -31,10 +31,13 @@ export default function SortAndFilter({ data, setData, filters }) {
   // Save initial Data
   const initialData = useRef({});
   useEffect(() => {
-    if (!initialData.current.length) {
+    if (
+      !initialData.current.length ||
+      data.length > initialData.current.length
+    ) {
       initialData.current = data;
     }
-  }, [data]); // eslint-disable-line
+  }, [data]);
 
   // Apply filters
   function handleFilter(e) {
@@ -45,7 +48,7 @@ export default function SortAndFilter({ data, setData, filters }) {
     setSearchParams(params);
 
     // Filter by filters object
-    filters.map((f) => {
+    filters?.map((f) => {
       let value = query[f.label.toLowerCase()];
       if (value != "All") {
         newData = f.applyFilter(newData, value);
@@ -101,7 +104,7 @@ export default function SortAndFilter({ data, setData, filters }) {
           <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 items-stretch lg:items-baseline justify-between py-4 border-y border-gray-900 my-8">
             <p className="font-bold">FILTERS</p>
 
-            {filters.map((filter, i) => (
+            {filters?.map((filter, i) => (
               <FilterSelect
                 key={i}
                 label={filter.label}

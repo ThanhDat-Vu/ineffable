@@ -9,11 +9,9 @@ import router from "./routes/router";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <HelmetProvider>
-      <RouterProvider router={router} />
-    </HelmetProvider>
-  </React.StrictMode>
+  <HelmetProvider>
+    <RouterProvider router={router} />
+  </HelmetProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
