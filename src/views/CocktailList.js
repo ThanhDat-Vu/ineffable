@@ -13,7 +13,7 @@ import cocktailFilter from "../static/cocktailFilter";
 
 export default function CocktailList({ pathLabel, title, dataLoader }) {
   const [cocktails, setCocktails] = useState([]);
-  const [isFound, setIsFound] = useState(true);
+  const [isLoad, setIsLoad] = useState(true);
 
   const [searchParams] = useSearchParams();
   const tagName = searchParams.get("tag");
@@ -22,7 +22,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
     if (dataLoader) {
       dataLoader().then((res) => {
         setCocktails(res);
-        setIsFound(res.length > 0);
+        setIsLoad(false);
       });
     } else {
       for (let i of "12345679abcdefghijklmnopqrstvwyz") {
@@ -38,6 +38,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
               })
             )
           );
+          setIsLoad(false);
         });
       }
     }
@@ -72,27 +73,25 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
 
         {/* Cocktail Cards */}
         <div
-          className="mb-12 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
+          className="min-w-[19rem] sm:min-w-[28rem] lg:min-w-[66rem] mb-12 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
           ref={scrollToRef}
         >
-          {isFound ? (
-            cocktails.length ? (
-              currentPageData?.map((recipe) => (
-                <CocktailCard
-                  key={recipe.idDrink}
-                  recipe={recipe}
-                  className="w-32 sm:w-48 h-32 sm:h-48"
-                />
-              ))
-            ) : (
-              [...Array(32).keys()]?.map((i) => (
-                <CocktailCard
-                  key={i}
-                  recipe={null}
-                  className="w-32 sm:w-48 h-32 sm:h-48"
-                />
-              ))
-            )
+          {cocktails.length ? (
+            currentPageData?.map((recipe) => (
+              <CocktailCard
+                key={recipe.idDrink}
+                recipe={recipe}
+                className="w-32 sm:w-48 h-32 sm:h-48"
+              />
+            ))
+          ) : isLoad ? (
+            [...Array(32).keys()]?.map((i) => (
+              <CocktailCard
+                key={i}
+                recipe={null}
+                className="w-32 sm:w-48 h-32 sm:h-48"
+              />
+            ))
           ) : (
             <p>No cocktail found!</p>
           )}

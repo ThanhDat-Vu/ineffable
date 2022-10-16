@@ -44,7 +44,7 @@ export default function IngredientList() {
 
         {/* Ingredient Cards */}
         <div
-          className="w-max mx-auto mt-4 mb-12 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
+          className="min-w-[19rem] sm:min-w-[28rem] lg:min-w-[66rem] w-max mx-auto mt-4 mb-12 grid grid-cols-2 lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-24 gap-y-8 sm:gap-y-12 xl:gap-y-16"
           ref={scrollToRef}
         >
           {ingredientNames.length ? (
