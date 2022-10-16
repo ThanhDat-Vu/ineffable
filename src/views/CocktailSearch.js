@@ -8,7 +8,7 @@ export default function CocktailSearch() {
   return (
     <CocktailList
       pathLabel="Home / Cocktails / Search"
-      title={`Search Cocktail: “${keyword}”`}
+      title={`Cocktail search: “${keyword}”`}
       dataLoader={async () => await searchCocktailByName(keyword)}
     />
   );

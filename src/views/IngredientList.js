@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import {
   Layout,
   Breadcrumb,
@@ -13,7 +14,21 @@ export default function IngredientList() {
   const data = useLoaderData();
   const [ingredientNames, setIngredientNames] = useState(data);
 
-  const title = "All Ingredients";
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword") || "";
+  console.log(searchParams);
+
+  useEffect(() => {
+    setIngredientNames((ingredientNames) =>
+      ingredientNames.filter((i) =>
+        i.strIngredient1.toLowerCase().includes(keyword.toLocaleLowerCase())
+      )
+    );
+  }, [keyword]);
+
+  const title = searchParams.has("keyword")
+    ? `Ingredients search: “${keyword}”`
+    : "All Ingredients";
 
   // Pagination
   const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =
