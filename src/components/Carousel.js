@@ -31,7 +31,7 @@ export default function Carousel({ children }) {
         className="overflow-x-scroll lg:w-[54rem] xl:w-[68rem] lg:overflow-hidden scroll-smooth -mx-[10vw] lg:mx-0 pb-4"
         ref={carouselRef}
       >
-        <div className="flex items-start pl-[5vw] lg:pl-0 w-max space-x-4 lg:space-x-8">
+        <div className="flex items-baseline pl-[5vw] lg:pl-0 w-max space-x-4 lg:space-x-8">
           {children}
         </div>
       </div>
