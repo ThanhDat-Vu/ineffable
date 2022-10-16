@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { Layout, Breadcrumb, IngredientCard, Pagination } from "../components";
-import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
+import {
+  Layout,
+  Breadcrumb,
+  IngredientCard,
+  Pagination,
+  SortAndFilter,
+} from "../components";
 import { usePagination } from "../components/Pagination";
 
 export default function IngredientList() {
@@ -17,14 +22,6 @@ export default function IngredientList() {
       pageCount: 32,
     });
 
-  // Filters & Sort
-  const [ascending, setAscending] = useState(true);
-
-  function sortData() {
-    setAscending(!ascending);
-    setIngredientNames(ingredientNames.slice().reverse());
-  }
-
   return (
     <Layout title="Ingredients" desc="Ingredient list">
       <div className="w-max mx-auto my-24 lg:my-32">
@@ -39,30 +36,11 @@ export default function IngredientList() {
         </div>
 
         {/* Sort & Filter */}
-        <div className="flex text-2xl mb-8 xl:mb-12">
-          <button
-            className="w-max mr-auto p-2 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black text-base"
-            aria-label="filter"
-          >
-            <BsSliders />
-          </button>
-          <button
-            className="p-1 border border-shiny-gold mr-2 hover:bg-shiny-gold disabled:bg-shiny-gold disabled:text-rich-black"
-            aria-label="sort ascending"
-            onClick={sortData}
-            disabled={ascending}
-          >
-            <BsSortAlphaDown />
-          </button>
-          <button
-            className="p-1 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black disabled:bg-shiny-gold disabled:text-rich-black"
-            aria-label="sort descending"
-            onClick={sortData}
-            disabled={!ascending}
-          >
-            <BsSortAlphaDownAlt />
-          </button>
-        </div>
+        <SortAndFilter
+          data={ingredientNames}
+          setData={setIngredientNames}
+          firstLetterProp="strIngredient1"
+        />
 
         {/* Ingredient Cards */}
         <div

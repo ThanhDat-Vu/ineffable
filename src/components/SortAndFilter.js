@@ -9,7 +9,12 @@ import {
 } from "react-icons/bs";
 import { createSearchParams, useSearchParams } from "react-router-dom";
 
-export default function SortAndFilter({ data, setData, filters }) {
+export default function SortAndFilter({
+  data,
+  setData,
+  filters,
+  firstLetterProp,
+}) {
   const [ascending, setAscending] = useState(true);
 
   function sortData() {
@@ -17,7 +22,7 @@ export default function SortAndFilter({ data, setData, filters }) {
     setData(data?.slice().reverse());
   }
 
-  const firstLetters = "012345679abcdefghijklmnopqrstvwyz";
+  const firstLetters = "012345679abcdefghijklmnopqrstuvwxyz";
 
   const [showFilters, setShowFilters] = useState(false);
   const [showFirstLetter, setShowFirstLetter] = useState(false);
@@ -59,7 +64,7 @@ export default function SortAndFilter({ data, setData, filters }) {
     let firstLetter = e.target.firstLetter.value;
     if (firstLetter !== "All") {
       newData = newData.filter(
-        (i) => i.strDrink[0].toLowerCase() == firstLetter
+        (i) => i[firstLetterProp][0].toLowerCase() == firstLetter
       );
     }
 

@@ -67,6 +67,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
           data={cocktails}
           setData={setCocktails}
           filters={cocktailFilter}
+          firstLetterProp="strDrink"
         />
 
         {/* Cocktail Cards */}
