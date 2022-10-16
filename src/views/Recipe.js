@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { createSearchParams, Link, useLoaderData } from "react-router-dom";
 import { getIngredientByName } from "../API/IngredientAPI";
 import {
   Layout,
@@ -102,7 +102,11 @@ export default function Recipe() {
             </h3>
             <p className="w-80 sm:w-max flex flex-wrap leading-6">
               {recipe.strTags?.split(",").map((tag, i) => (
-                <Link key={i} className="italic">
+                <Link
+                  key={i}
+                  to={`/cocktails/?${createSearchParams({ tag })}`}
+                  className="italic"
+                >
                   {tag};&nbsp;
                 </Link>
               ))}

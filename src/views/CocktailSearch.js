@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { searchCocktailByName } from "../API/CocktailAPI";
 import CocktailList from "./CocktailList";
 
 export default function CocktailSearch() {
-  let { keyword } = useParams();
-  if (!keyword) keyword = "";
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword") || "";
   return (
     <CocktailList
       pathLabel="Home / Cocktails / Search"

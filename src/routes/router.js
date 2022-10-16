@@ -58,12 +58,6 @@ const router = createBrowserRouter([
   {
     path: "cocktails/search",
     element: <CocktailSearch />,
-    children: [
-      {
-        path: ":keyword",
-        element: <CocktailSearch />,
-      },
-    ],
   },
   {
     path: "categories/",
@@ -96,14 +90,6 @@ const router = createBrowserRouter([
     path: "ingredients/search",
     element: <IngredientList />,
     loader: async () => await listAllIngredientNames(),
-  },
-  {
-    path: "ingredients/search/:keyword",
-    element: <IngredientList title="Ingredient Search" />,
-    loader: async ({ params }) => {
-      let ingredient = await getIngredientByName(params.keyword || "");
-      return ingredient ? [ingredient] : [];
-    },
   },
 ]);
 

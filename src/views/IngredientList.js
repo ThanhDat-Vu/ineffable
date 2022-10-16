@@ -4,9 +4,11 @@ import { Layout, Breadcrumb, IngredientCard, Pagination } from "../components";
 import { BsSliders, BsSortAlphaDown, BsSortAlphaDownAlt } from "react-icons/bs";
 import { usePagination } from "../components/Pagination";
 
-export default function IngredientList({ title = "All Ingredients" }) {
+export default function IngredientList() {
   const data = useLoaderData();
   const [ingredientNames, setIngredientNames] = useState(data);
+
+  const title = "All Ingredients";
 
   // Pagination
   const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =

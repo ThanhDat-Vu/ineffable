@@ -1,22 +1,34 @@
 import { useEffect, useState } from "react";
-import { Layout, Breadcrumb, CocktailCard, Pagination } from "../components";
+import { useSearchParams } from "react-router-dom";
 import {
-  // BsChevronDown,
-  BsSliders,
-  BsSortAlphaDown,
-  BsSortAlphaDownAlt,
-} from "react-icons/bs";
+  Layout,
+  Breadcrumb,
+  CocktailCard,
+  Pagination,
+  SortAndFilter,
+} from "../components";
 import { usePagination } from "../components/Pagination";
+import cocktailFilter from "../static/cocktailFilter";
 
 export default function CocktailList({ pathLabel, title, dataLoader }) {
   const [cocktails, setCocktails] = useState([]);
   const [isFound, setIsFound] = useState(true);
+
+  const [searchParams] = useSearchParams();
+  const tagName = searchParams.get("tag");
+
   useEffect(() => {
     dataLoader().then((res) => {
-      setCocktails(res);
+      if (tagName) {
+        setCocktails(
+          res.filter((i) => i.strTags && i.strTags.includes(tagName))
+        );
+      } else {
+        setCocktails(res);
+      }
       setIsFound(res.length > 0);
     });
-  }, [dataLoader]);
+  }, [dataLoader, tagName]);
 
   // Pagination
   const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =
@@ -24,18 +36,6 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
       data: cocktails,
       pageCount: 32,
     });
-
-  // Filters & Sort
-  const [ascending, setAscending] = useState(true);
-
-  function sortData() {
-    setAscending(!ascending);
-    setCocktails(cocktails.slice().reverse());
-  }
-
-  // const firstLetters = "12345679abcdefghijklmnopqrstvwyz";
-
-  // const [showFilters, setShowFilters] = useState(false);
 
   return (
     <Layout title={title} desc={`Cocktail List - ${title}`}>
@@ -50,68 +50,11 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
         </div>
 
         {/* Sort & Filter */}
-        <div className="flex text-2xl mb-8 xl:mb-12">
-          <button
-            className="mr-auto p-2 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black text-base"
-            aria-label="filter"
-            // onClick={() => setShowFilters(!showFilters)}
-          >
-            <BsSliders />
-          </button>
-          <button
-            className="p-1 border border-shiny-gold mr-2 hover:bg-shiny-gold disabled:bg-shiny-gold disabled:text-rich-black"
-            aria-label="sort ascending"
-            onClick={sortData}
-            disabled={ascending}
-          >
-            <BsSortAlphaDown />
-          </button>
-          <button
-            className="p-1 border border-shiny-gold hover:bg-shiny-gold hover:text-rich-black disabled:bg-shiny-gold disabled:text-rich-black"
-            aria-label="sort descending"
-            onClick={sortData}
-            disabled={!ascending}
-          >
-            <BsSortAlphaDownAlt />
-          </button>
-        </div>
-
-        {/* Filters */}
-        {/* {showFilters && (
-          <div>
-            <div className="flex items-center justify-between py-4 border-y border-gray-900 my-8">
-              <p className="font-bold">FILTERS</p>
-              <div className="flex items-center">
-                Alcoholic: All
-                <BsChevronDown className="ml-2" />
-              </div>
-              <div className="flex items-center">
-                Glass: All
-                <BsChevronDown className="ml-2" />
-              </div>
-              <div className="flex items-center">
-                First Letter: All
-                <BsChevronDown className="ml-2" />
-              </div>
-              <div>
-                <button className="w-24 py-2 border border-gray-900 hover:border-white mr-4 italic">
-                  Reset
-                </button>
-                <button className="w-24 py-2 bg-shiny-gold hover:brightness-125 border border-shiny-gold text-rich-black font-bold">
-                  Apply
-                </button>
-              </div>
-            </div>
-            <div className="border-b border-gray-900 pb-8">
-              <button className="mx-1 hover:text-shiny-gold">All /</button>
-              {firstLetters.split("").map((c, i) => (
-                <button key={i} className="mx-1 hover:text-shiny-gold">
-                  {c.toUpperCase()} /
-                </button>
-              ))}
-            </div>
-          </div>
-        )} */}
+        <SortAndFilter
+          data={cocktails}
+          setData={setCocktails}
+          filters={cocktailFilter}
+        />
 
         {/* Cocktail Cards */}
         <div

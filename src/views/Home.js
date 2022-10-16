@@ -3,7 +3,7 @@ import { getPopularCocktails } from "../API/CocktailAPI";
 import { getPopularIngredients } from "../API/IngredientAPI";
 import useSession from "../hooks/useSession";
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, createSearchParams } from "react-router-dom";
 import {
   Layout,
   SearchBox,
@@ -30,7 +30,13 @@ export default function Home() {
   function handleSearch(e) {
     e.preventDefault();
     let keyword = e.target.keyword.value;
-    navigate(`/${index == 0 ? "cocktails" : "ingredients"}/search/${keyword}`);
+    navigate(
+      `/${index == 0 ? "cocktails" : "ingredients"}/search?${createSearchParams(
+        {
+          keyword,
+        }
+      )}`
+    );
   }
 
   return (

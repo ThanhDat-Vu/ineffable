@@ -9,7 +9,14 @@ import OutsiderAlerter from "./OutsiderAlerter";
  * @param {function} props.setIndex
  * @param {{ fieldStyle: string, menuStyle: string, optionStyle: string}} props.styles
  */
-export default function Dropdown({ menu, index, setIndex, styles }) {
+export default function Dropdown({
+  menu,
+  index,
+  setIndex,
+  styles,
+  id = "dropdown",
+  name = "dropdown",
+}) {
   // Behaviors
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState(menu);
@@ -66,13 +73,22 @@ export default function Dropdown({ menu, index, setIndex, styles }) {
         aria-controls="dropdown"
         aria-expanded="false"
         tabIndex={0}
-        className={`w-full flex items-center justify-between cursor-pointer box-border ${styles?.fieldStyle}`}
+        className="w-full relative cursor-pointer box-content"
         onClick={() => setIsOpen(!isOpen)}
         onKeyDown={(e) => handleMenuKeyDown(e)}
       >
-        {options[index].label}
-        {isOpen ? <BsChevronUp /> : <BsChevronDown />}
+        <input
+          id={id}
+          name={name}
+          value={options[index].label}
+          readOnly
+          className={`w-full cursor-pointer outline-none pr-8 ${styles?.fieldStyle}`}
+        />
+        <div className="absolute top-1/2 -translate-y-1/2 right-2">
+          {isOpen ? <BsChevronUp /> : <BsChevronDown />}
+        </div>
       </div>
+
       {/* Menu */}
       <div
         id="dropdown"
