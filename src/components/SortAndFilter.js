@@ -64,7 +64,7 @@ export default function SortAndFilter({
     let firstLetter = e.target.firstLetter.value;
     if (firstLetter !== "All") {
       newData = newData.filter(
-        (i) => i[firstLetterProp][0].toLowerCase() == firstLetter
+        (i) => i[firstLetterProp][0].toLowerCase() === firstLetter
       );
     }
 

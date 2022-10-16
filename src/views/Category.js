@@ -10,6 +10,7 @@ export default function Category() {
       pathLabel={`Home / Category / ${category}`}
       title={`Category: ${category}`}
       dataLoader={async () => await listCocktailsByCategory(keyword)}
+      enableFilter={false}
     />
   );
 }

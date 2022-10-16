@@ -11,7 +11,12 @@ import {
 import { usePagination } from "../components/Pagination";
 import cocktailFilter from "../static/cocktailFilter";
 
-export default function CocktailList({ pathLabel, title, dataLoader }) {
+export default function CocktailList({
+  pathLabel,
+  title,
+  dataLoader,
+  enableFilter = true,
+}) {
   const [cocktails, setCocktails] = useState([]);
   const [isLoad, setIsLoad] = useState(true);
 
@@ -42,7 +47,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
         });
       }
     }
-  }, [dataLoader, tagName]);
+  }, [tagName]); // eslint-disable-line
 
   // Pagination
   const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =
@@ -67,7 +72,7 @@ export default function CocktailList({ pathLabel, title, dataLoader }) {
         <SortAndFilter
           data={cocktails}
           setData={setCocktails}
-          filters={cocktailFilter}
+          filters={enableFilter ? cocktailFilter : null}
           firstLetterProp="strDrink"
         />
 
