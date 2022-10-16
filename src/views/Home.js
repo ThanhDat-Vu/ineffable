@@ -45,7 +45,7 @@ export default function Home() {
       desc="Cocktail recipe website - Homepage"
     >
       {/* Hero Section */}
-      <div className="h-available bg-hero-image bg-[length:auto_100%] sm:bg-cover bg-center bg-fixed relative">
+      <div className="h-available bg-hero-image bg-[length:auto_100%] sm:bg-cover bg-center lg:bg-fixed relative">
         {/* Overlay */}
         <div className="w-full h-full bg-rich-black opacity-70"></div>
 
