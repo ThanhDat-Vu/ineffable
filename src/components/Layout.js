@@ -5,6 +5,7 @@ import {
   NavLink,
   Link,
   ScrollRestoration,
+  createSearchParams,
 } from "react-router-dom";
 import { AiOutlineRight, AiOutlineLeft, AiOutlineSearch } from "react-icons/ai";
 import {
@@ -43,7 +44,7 @@ export default function Layout({ children, title, desc }) {
   function handleSearch(e) {
     e.preventDefault();
     let keyword = e.target.keyword.value;
-    navigate(`/cocktails/search/${keyword}`);
+    navigate(`/cocktails/search?${createSearchParams({ keyword })}`);
     closeMenu();
   }
 
