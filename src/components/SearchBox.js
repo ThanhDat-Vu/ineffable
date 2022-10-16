@@ -24,7 +24,7 @@ export default function SearchBox({ index }) {
     typeahead: "text-gray-400",
     clearButton:
       "absolute inset-y-0 right-0 w-10 text-2xl text-gray-400 hover:text-white",
-    noItems: "cursor-default text-center my-16",
+    noItems: "cursor-default text-center my-16 px-16 lg:px-0 leading-6",
   };
 
   return (
