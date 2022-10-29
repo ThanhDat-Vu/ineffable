@@ -36,6 +36,7 @@ export async function listCocktailsByFirstLetter(firstLetter) {
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`
   );
   const data = await res.json();
+  console.log(data.drinks);
   return data.drinks || [];
 }
 

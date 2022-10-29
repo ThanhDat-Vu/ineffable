@@ -7,7 +7,6 @@ import { Layout, Breadcrumb, CocktailCard, Pagination } from "../components";
 
 export default function Ingredient() {
   const ingredient = useLoaderData();
-  console.log(ingredient);
   // Drinks loader
   const [drinks, setDrinks] = useState([]);
   useEffect(() => {

@@ -16,7 +16,6 @@ export default function IngredientList() {
 
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
-  console.log(searchParams);
 
   useEffect(() => {
     setIngredientNames((ingredientNames) =>
