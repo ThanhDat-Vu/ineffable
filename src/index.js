@@ -3,9 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./styles/index.css";
 import reportWebVitals from "./reportWebVitals";
 import { HelmetProvider } from "react-helmet-async";
+import ReactGA from "react-ga4";
 
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/router";
+
+const TRACKING_ID = "G-WZ99Q18Z5P";
+ReactGA.initialize(TRACKING_ID);
+ReactGA.send("pageview");
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
