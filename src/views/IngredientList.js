@@ -18,12 +18,16 @@ export default function IngredientList() {
   const keyword = searchParams.get("keyword") || "";
 
   useEffect(() => {
-    setIngredientNames((ingredientNames) =>
-      ingredientNames.filter((i) =>
-        i.strIngredient1.toLowerCase().includes(keyword.toLocaleLowerCase())
-      )
-    );
-  }, [keyword]);
+    if (keyword) {
+      setIngredientNames((ingredientNames) =>
+        ingredientNames.filter((i) =>
+          i.strIngredient1.toLowerCase().includes(keyword.toLocaleLowerCase())
+        )
+      );
+    } else {
+      setIngredientNames(data);
+    }
+  }, [keyword]); // eslint-disable-line
 
   const title = searchParams.has("keyword")
     ? `Ingredients search: “${keyword}”`

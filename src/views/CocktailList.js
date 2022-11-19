@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { listCocktailsByFirstLetter } from "../API/CocktailAPI";
 import {
   Layout,
   Breadcrumb,
@@ -12,43 +9,13 @@ import { usePagination } from "../components/Pagination";
 import cocktailFilter from "../static/cocktailFilter";
 
 export default function CocktailList({
+  cocktails,
+  setCocktails,
+  isLoad,
   pathLabel,
   title,
-  dataLoader,
   enableFilter = true,
 }) {
-  const [cocktails, setCocktails] = useState([]);
-  const [isLoad, setIsLoad] = useState(true);
-
-  const [searchParams] = useSearchParams();
-  const tagName = searchParams.get("tag");
-
-  useEffect(() => {
-    if (dataLoader) {
-      dataLoader().then((res) => {
-        setCocktails(res);
-        setIsLoad(false);
-      });
-    } else {
-      for (let i of "12345679abcdefghijklmnopqrstvwyz") {
-        listCocktailsByFirstLetter(i).then((res) => {
-          if (tagName) {
-            res = res.filter((i) => i.strTags && i.strTags.includes(tagName));
-          }
-          setCocktails((cocktails) => [...cocktails, ...res]);
-          setCocktails((cocktails) =>
-            cocktails.sort((a, b) =>
-              a.strDrink.localeCompare(b.strDrink, "en", {
-                sensitivity: "base",
-              })
-            )
-          );
-          setIsLoad(false);
-        });
-      }
-    }
-  }, [tagName]); // eslint-disable-line
-
   // Pagination
   const { currentPage, setCurrentPage, maxPage, currentPageData, scrollToRef } =
     usePagination({

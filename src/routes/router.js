@@ -4,7 +4,7 @@ import {
   Recipe,
   Ingredient,
   IngredientList,
-  CocktailList,
+  AllCocktails,
   CocktailSearch,
   Category,
 } from "../views";
@@ -43,9 +43,7 @@ const router = createBrowserRouter([
   },
   {
     path: "cocktails",
-    element: (
-      <CocktailList pathLabel="Home / Cocktails" title="All Cocktails" />
-    ),
+    element: <AllCocktails />,
   },
   {
     path: "cocktails/search",
@@ -53,9 +51,7 @@ const router = createBrowserRouter([
   },
   {
     path: "categories/",
-    element: (
-      <CocktailList pathLabel="Home / Cocktails" title="All Cocktails" />
-    ),
+    element: <AllCocktails />,
   },
   {
     path: "categories/:category",
